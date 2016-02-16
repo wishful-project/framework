@@ -18,12 +18,74 @@ _sym_db = _symbol_database.Default()
 DESCRIPTOR = _descriptor.FileDescriptor(
   name='management.proto',
   package='wishful_controller.framework',
-  serialized_pb=_b('\n\x10management.proto\x12\x1cwishful_controller.framework\"y\n\x07\x43mdDesc\x12\x0c\n\x04type\x18\x01 \x02(\t\x12\x11\n\tfunc_name\x18\x02 \x02(\t\x12\x11\n\texec_time\x18\x03 \x01(\t\x12\x0f\n\x07\x63\x61ll_id\x18\x04 \x01(\t\x12\x11\n\tcaller_id\x18\x05 \x01(\t\x12\x16\n\x0etransaction_id\x18\x06 \x01(\t\"e\n\x07MsgDesc\x12\x10\n\x08msg_type\x18\x01 \x02(\t\x12\x11\n\texec_time\x18\x02 \x01(\t\x12\x16\n\x0etransaction_id\x18\x03 \x01(\t\x12\x0c\n\x04uuid\x18\x04 \x01(\t\x12\x0f\n\x07msg_set\x18\x05 \x01(\x08\"\xbf\x01\n\nNewNodeMsg\x12\x12\n\nagent_uuid\x18\x01 \x02(\t\x12\x0c\n\x04name\x18\x02 \x01(\t\x12\x0c\n\x04info\x18\x03 \x01(\t\x12\x0f\n\x07modules\x18\x04 \x03(\t\x12\x46\n\nattributes\x18\x05 \x03(\x0b\x32\x32.wishful_controller.framework.NewNodeMsg.Attribute\x1a(\n\tAttribute\x12\x0c\n\x04name\x18\x01 \x02(\t\x12\r\n\x05value\x18\x02 \x02(\t\"Y\n\nNewNodeAck\x12\x0e\n\x06status\x18\x01 \x02(\x08\x12\x17\n\x0f\x63ontroller_uuid\x18\x02 \x01(\t\x12\x12\n\nagent_uuid\x18\x03 \x01(\t\x12\x0e\n\x06topics\x18\x04 \x03(\t\"1\n\x0bNodeExitMsg\x12\x12\n\nagent_uuid\x18\x01 \x02(\t\x12\x0e\n\x06reason\x18\x02 \x01(\t\"K\n\x17\x43ontrollerDiscoveredMsg\x12\x11\n\tdown_link\x18\x01 \x01(\t\x12\x0f\n\x07up_link\x18\x02 \x01(\t\x12\x0c\n\x04pair\x18\x03 \x01(\t\"%\n\x13\x44iscoverySuccessMsg\x12\x0e\n\x06status\x18\x01 \x02(\x08\"%\n\x13\x44iscoveryRestartMsg\x12\x0e\n\x06reason\x18\x01 \x01(\t\")\n\x08HelloMsg\x12\x0c\n\x04uuid\x18\x01 \x02(\t\x12\x0f\n\x07timeout\x18\x02 \x02(\r\"!\n\x10\x45xampleModuleReq\x12\r\n\x05hello\x18\x01 \x01(\t\"!\n\x10\x45xampleModuleAck\x12\r\n\x05hello\x18\x01 \x02(\t')
+  serialized_pb=_b('\n\x10management.proto\x12\x1cwishful_controller.framework\"\xbe\x03\n\x07\x43mdDesc\x12\x0c\n\x04type\x18\x01 \x02(\t\x12\x11\n\tfunc_name\x18\x02 \x02(\t\x12\x11\n\texec_time\x18\x03 \x01(\t\x12\x0f\n\x07\x63\x61ll_id\x18\x04 \x01(\t\x12\x11\n\tcaller_id\x18\x05 \x01(\t\x12\x16\n\x0etransaction_id\x18\x06 \x01(\t\x12U\n\x12serialization_type\x18\x07 \x01(\x0e\x32\x33.wishful_controller.framework.CmdDesc.Serialization:\x04NONE\x12\x17\n\x0frepeat_interval\x18\x08 \x01(\t\x12\x15\n\rrepeat_number\x18\t \x01(\r\x12Q\n\x11repeat_conditions\x18\n \x01(\x0b\x32\x36.wishful_controller.framework.CmdDesc.RepeatConditions\x1a\x34\n\x10RepeatConditions\x12\x11\n\tcondition\x18\x01 \x01(\r\x12\r\n\x05value\x18\x02 \x01(\r\"3\n\rSerialization\x12\x08\n\x04NONE\x10\x00\x12\n\n\x06PICKLE\x10\x01\x12\x0c\n\x08PROTOBUF\x10\x02\"e\n\x07MsgDesc\x12\x10\n\x08msg_type\x18\x01 \x02(\t\x12\x11\n\texec_time\x18\x02 \x01(\t\x12\x16\n\x0etransaction_id\x18\x03 \x01(\t\x12\x0c\n\x04uuid\x18\x04 \x01(\t\x12\x0f\n\x07msg_set\x18\x05 \x01(\x08\"\xbf\x01\n\nNewNodeMsg\x12\x12\n\nagent_uuid\x18\x01 \x02(\t\x12\x0c\n\x04name\x18\x02 \x01(\t\x12\x0c\n\x04info\x18\x03 \x01(\t\x12\x0f\n\x07modules\x18\x04 \x03(\t\x12\x46\n\nattributes\x18\x05 \x03(\x0b\x32\x32.wishful_controller.framework.NewNodeMsg.Attribute\x1a(\n\tAttribute\x12\x0c\n\x04name\x18\x01 \x02(\t\x12\r\n\x05value\x18\x02 \x02(\t\"Y\n\nNewNodeAck\x12\x0e\n\x06status\x18\x01 \x02(\x08\x12\x17\n\x0f\x63ontroller_uuid\x18\x02 \x01(\t\x12\x12\n\nagent_uuid\x18\x03 \x01(\t\x12\x0e\n\x06topics\x18\x04 \x03(\t\"1\n\x0bNodeExitMsg\x12\x12\n\nagent_uuid\x18\x01 \x02(\t\x12\x0e\n\x06reason\x18\x02 \x01(\t\"K\n\x17\x43ontrollerDiscoveredMsg\x12\x11\n\tdown_link\x18\x01 \x01(\t\x12\x0f\n\x07up_link\x18\x02 \x01(\t\x12\x0c\n\x04pair\x18\x03 \x01(\t\"%\n\x13\x44iscoverySuccessMsg\x12\x0e\n\x06status\x18\x01 \x02(\x08\"%\n\x13\x44iscoveryRestartMsg\x12\x0e\n\x06reason\x18\x01 \x01(\t\")\n\x08HelloMsg\x12\x0c\n\x04uuid\x18\x01 \x02(\t\x12\x0f\n\x07timeout\x18\x02 \x02(\r\"!\n\x10\x45xampleModuleReq\x12\r\n\x05hello\x18\x01 \x01(\t\"!\n\x10\x45xampleModuleAck\x12\r\n\x05hello\x18\x01 \x02(\t')
 )
 _sym_db.RegisterFileDescriptor(DESCRIPTOR)
 
 
 
+_CMDDESC_SERIALIZATION = _descriptor.EnumDescriptor(
+  name='Serialization',
+  full_name='wishful_controller.framework.CmdDesc.Serialization',
+  filename=None,
+  file=DESCRIPTOR,
+  values=[
+    _descriptor.EnumValueDescriptor(
+      name='NONE', index=0, number=0,
+      options=None,
+      type=None),
+    _descriptor.EnumValueDescriptor(
+      name='PICKLE', index=1, number=1,
+      options=None,
+      type=None),
+    _descriptor.EnumValueDescriptor(
+      name='PROTOBUF', index=2, number=2,
+      options=None,
+      type=None),
+  ],
+  containing_type=None,
+  options=None,
+  serialized_start=446,
+  serialized_end=497,
+)
+_sym_db.RegisterEnumDescriptor(_CMDDESC_SERIALIZATION)
+
+
+_CMDDESC_REPEATCONDITIONS = _descriptor.Descriptor(
+  name='RepeatConditions',
+  full_name='wishful_controller.framework.CmdDesc.RepeatConditions',
+  filename=None,
+  file=DESCRIPTOR,
+  containing_type=None,
+  fields=[
+    _descriptor.FieldDescriptor(
+      name='condition', full_name='wishful_controller.framework.CmdDesc.RepeatConditions.condition', index=0,
+      number=1, type=13, cpp_type=3, label=1,
+      has_default_value=False, default_value=0,
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      options=None),
+    _descriptor.FieldDescriptor(
+      name='value', full_name='wishful_controller.framework.CmdDesc.RepeatConditions.value', index=1,
+      number=2, type=13, cpp_type=3, label=1,
+      has_default_value=False, default_value=0,
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      options=None),
+  ],
+  extensions=[
+  ],
+  nested_types=[],
+  enum_types=[
+  ],
+  options=None,
+  is_extendable=False,
+  extension_ranges=[],
+  oneofs=[
+  ],
+  serialized_start=392,
+  serialized_end=444,
+)
 
 _CMDDESC = _descriptor.Descriptor(
   name='CmdDesc',
@@ -74,19 +136,48 @@ _CMDDESC = _descriptor.Descriptor(
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       options=None),
+    _descriptor.FieldDescriptor(
+      name='serialization_type', full_name='wishful_controller.framework.CmdDesc.serialization_type', index=6,
+      number=7, type=14, cpp_type=8, label=1,
+      has_default_value=True, default_value=0,
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      options=None),
+    _descriptor.FieldDescriptor(
+      name='repeat_interval', full_name='wishful_controller.framework.CmdDesc.repeat_interval', index=7,
+      number=8, type=9, cpp_type=9, label=1,
+      has_default_value=False, default_value=_b("").decode('utf-8'),
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      options=None),
+    _descriptor.FieldDescriptor(
+      name='repeat_number', full_name='wishful_controller.framework.CmdDesc.repeat_number', index=8,
+      number=9, type=13, cpp_type=3, label=1,
+      has_default_value=False, default_value=0,
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      options=None),
+    _descriptor.FieldDescriptor(
+      name='repeat_conditions', full_name='wishful_controller.framework.CmdDesc.repeat_conditions', index=9,
+      number=10, type=11, cpp_type=10, label=1,
+      has_default_value=False, default_value=None,
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      options=None),
   ],
   extensions=[
   ],
-  nested_types=[],
+  nested_types=[_CMDDESC_REPEATCONDITIONS, ],
   enum_types=[
+    _CMDDESC_SERIALIZATION,
   ],
   options=None,
   is_extendable=False,
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=50,
-  serialized_end=171,
+  serialized_start=51,
+  serialized_end=497,
 )
 
 
@@ -143,8 +234,8 @@ _MSGDESC = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=173,
-  serialized_end=274,
+  serialized_start=499,
+  serialized_end=600,
 )
 
 
@@ -180,8 +271,8 @@ _NEWNODEMSG_ATTRIBUTE = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=428,
-  serialized_end=468,
+  serialized_start=754,
+  serialized_end=794,
 )
 
 _NEWNODEMSG = _descriptor.Descriptor(
@@ -237,8 +328,8 @@ _NEWNODEMSG = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=277,
-  serialized_end=468,
+  serialized_start=603,
+  serialized_end=794,
 )
 
 
@@ -288,8 +379,8 @@ _NEWNODEACK = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=470,
-  serialized_end=559,
+  serialized_start=796,
+  serialized_end=885,
 )
 
 
@@ -325,8 +416,8 @@ _NODEEXITMSG = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=561,
-  serialized_end=610,
+  serialized_start=887,
+  serialized_end=936,
 )
 
 
@@ -369,8 +460,8 @@ _CONTROLLERDISCOVEREDMSG = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=612,
-  serialized_end=687,
+  serialized_start=938,
+  serialized_end=1013,
 )
 
 
@@ -399,8 +490,8 @@ _DISCOVERYSUCCESSMSG = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=689,
-  serialized_end=726,
+  serialized_start=1015,
+  serialized_end=1052,
 )
 
 
@@ -429,8 +520,8 @@ _DISCOVERYRESTARTMSG = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=728,
-  serialized_end=765,
+  serialized_start=1054,
+  serialized_end=1091,
 )
 
 
@@ -466,8 +557,8 @@ _HELLOMSG = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=767,
-  serialized_end=808,
+  serialized_start=1093,
+  serialized_end=1134,
 )
 
 
@@ -496,8 +587,8 @@ _EXAMPLEMODULEREQ = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=810,
-  serialized_end=843,
+  serialized_start=1136,
+  serialized_end=1169,
 )
 
 
@@ -526,10 +617,14 @@ _EXAMPLEMODULEACK = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=845,
-  serialized_end=878,
+  serialized_start=1171,
+  serialized_end=1204,
 )
 
+_CMDDESC_REPEATCONDITIONS.containing_type = _CMDDESC
+_CMDDESC.fields_by_name['serialization_type'].enum_type = _CMDDESC_SERIALIZATION
+_CMDDESC.fields_by_name['repeat_conditions'].message_type = _CMDDESC_REPEATCONDITIONS
+_CMDDESC_SERIALIZATION.containing_type = _CMDDESC
 _NEWNODEMSG_ATTRIBUTE.containing_type = _NEWNODEMSG
 _NEWNODEMSG.fields_by_name['attributes'].message_type = _NEWNODEMSG_ATTRIBUTE
 DESCRIPTOR.message_types_by_name['CmdDesc'] = _CMDDESC
@@ -545,11 +640,19 @@ DESCRIPTOR.message_types_by_name['ExampleModuleReq'] = _EXAMPLEMODULEREQ
 DESCRIPTOR.message_types_by_name['ExampleModuleAck'] = _EXAMPLEMODULEACK
 
 CmdDesc = _reflection.GeneratedProtocolMessageType('CmdDesc', (_message.Message,), dict(
+
+  RepeatConditions = _reflection.GeneratedProtocolMessageType('RepeatConditions', (_message.Message,), dict(
+    DESCRIPTOR = _CMDDESC_REPEATCONDITIONS,
+    __module__ = 'management_pb2'
+    # @@protoc_insertion_point(class_scope:wishful_controller.framework.CmdDesc.RepeatConditions)
+    ))
+  ,
   DESCRIPTOR = _CMDDESC,
   __module__ = 'management_pb2'
   # @@protoc_insertion_point(class_scope:wishful_controller.framework.CmdDesc)
   ))
 _sym_db.RegisterMessage(CmdDesc)
+_sym_db.RegisterMessage(CmdDesc.RepeatConditions)
 
 MsgDesc = _reflection.GeneratedProtocolMessageType('MsgDesc', (_message.Message,), dict(
   DESCRIPTOR = _MSGDESC,
