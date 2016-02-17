@@ -25,6 +25,33 @@ message CmdDesc {
     optional RepeatConditions repeat_conditions = 10;
 }
 
+message RuleDesc {
+    message Match {
+        required string type = 1;
+        required string func_name = 2;
+        required string filter_type = 3;
+        required string filter_window_type = 4;
+        required string filter_window_size = 5;
+        required string condition = 6;
+        required string value = 7;
+    }
+    required Match match = 1;
+
+    message Action {
+        required string type = 1;
+        required string func_name = 2;
+        required string args = 3;
+    }
+    required Action action = 2;
+
+    enum Permanence {
+      TRANSIENT = 0;
+      PERMANENT = 1;
+    }
+    required Permanence permanence = 3 [default = TRANSIENT];
+    required string callback = 4;
+}
+
 message MsgDesc {
     required string msg_type = 1;
     optional string exec_time = 2;
