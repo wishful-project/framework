@@ -26,30 +26,35 @@ message CmdDesc {
 }
 
 message RuleDesc {
-    message Match {
+    message Event {
         required string type = 1;
         required string func_name = 2;
-        required string filter_type = 3;
-        required string filter_window_type = 4;
-        required string filter_window_size = 5;
-        required string condition = 6;
-        required string value = 7;
+        required string repeat_interval = 3;
     }
-    required Match match = 1;
-
+    message Filter {
+        required string filter_type = 1;
+        required string filter_window_type = 2;
+        required string filter_window_size = 3;
+    }
+    message Match {
+        required string condition = 7;
+        required string value = 8;
+    }
     message Action {
         required string type = 1;
         required string func_name = 2;
         required string args = 3;
     }
-    required Action action = 2;
-
     enum Permanence {
       TRANSIENT = 0;
       PERMANENT = 1;
     }
-    required Permanence permanence = 3 [default = TRANSIENT];
-    required string callback = 4;
+    required Event event = 1;
+    optional Filter filter = 2;
+    optional Match match = 3;
+    optional Permanence permanence = 4 [default = TRANSIENT];
+    optional Action action = 5;
+    optional string callback = 6;
 }
 
 message MsgDesc {
