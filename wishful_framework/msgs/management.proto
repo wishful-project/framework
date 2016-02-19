@@ -7,29 +7,26 @@ message CmdDesc {
     optional string call_id = 4;
     optional string caller_id = 5;
     optional string transaction_id = 6;
+    optional string interface = 7;
 
     enum Serialization {
       NONE = 0;
       PICKLE = 1;
       PROTOBUF = 2;
     }
-    optional Serialization serialization_type = 7 [default = NONE];
+    optional Serialization serialization_type = 8 [default = NONE];
 
-    optional string repeat_interval = 8;
-    optional uint32 repeat_number = 9;
-
-    message RepeatConditions {
-      optional uint32 condition = 1;
-      optional uint32 value = 2;  
-    }
-    optional RepeatConditions repeat_conditions = 10;
+    optional string repeat_interval = 9;
+    optional uint32 repeat_number = 10;
 }
 
 message RuleDesc {
     message Event {
         required string type = 1;
         required string func_name = 2;
-        required string repeat_interval = 3;
+        optional string interface = 3;
+        required string args = 4;
+        required string repeat_interval = 5;
     }
     message Filter {
         required string filter_type = 1;
@@ -50,7 +47,7 @@ message RuleDesc {
       PERMANENT = 1;
     }
     required Event event = 1;
-    optional Filter filter = 2;
+    repeated Filter filter = 2;
     optional Match match = 3;
     optional Permanence permanence = 4 [default = TRANSIENT];
     optional Action action = 5;
