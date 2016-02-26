@@ -18,7 +18,7 @@ _sym_db = _symbol_database.Default()
 DESCRIPTOR = _descriptor.FileDescriptor(
   name='management.proto',
   package='wishful_controller.framework',
-  serialized_pb=_b('\n\x10management.proto\x12\x1cwishful_controller.framework\"\xc8\x02\n\x07\x43mdDesc\x12\x0c\n\x04type\x18\x01 \x02(\t\x12\x11\n\tfunc_name\x18\x02 \x02(\t\x12\x11\n\texec_time\x18\x03 \x01(\t\x12\x0f\n\x07\x63\x61ll_id\x18\x04 \x01(\t\x12\x11\n\tcaller_id\x18\x05 \x01(\t\x12\x16\n\x0etransaction_id\x18\x06 \x01(\t\x12\x11\n\tinterface\x18\x07 \x01(\t\x12U\n\x12serialization_type\x18\x08 \x01(\x0e\x32\x33.wishful_controller.framework.CmdDesc.Serialization:\x04NONE\x12\x17\n\x0frepeat_interval\x18\t \x01(\t\x12\x15\n\rrepeat_number\x18\n \x01(\r\"3\n\rSerialization\x12\x08\n\x04NONE\x10\x00\x12\n\n\x06PICKLE\x10\x01\x12\x0c\n\x08PROTOBUF\x10\x02\"\xb1\x05\n\x08RuleDesc\x12;\n\x05\x65vent\x18\x01 \x02(\x0b\x32,.wishful_controller.framework.RuleDesc.Event\x12=\n\x06\x66ilter\x18\x02 \x03(\x0b\x32-.wishful_controller.framework.RuleDesc.Filter\x12;\n\x05match\x18\x03 \x01(\x0b\x32,.wishful_controller.framework.RuleDesc.Match\x12P\n\npermanence\x18\x04 \x01(\x0e\x32\x31.wishful_controller.framework.RuleDesc.Permanence:\tTRANSIENT\x12=\n\x06\x61\x63tion\x18\x05 \x01(\x0b\x32-.wishful_controller.framework.RuleDesc.Action\x12\x10\n\x08\x63\x61llback\x18\x06 \x01(\t\x1a\x62\n\x05\x45vent\x12\x0c\n\x04type\x18\x01 \x02(\t\x12\x11\n\tfunc_name\x18\x02 \x02(\t\x12\x11\n\tinterface\x18\x03 \x01(\t\x12\x0c\n\x04\x61rgs\x18\x04 \x02(\t\x12\x17\n\x0frepeat_interval\x18\x05 \x02(\t\x1aU\n\x06\x46ilter\x12\x13\n\x0b\x66ilter_type\x18\x01 \x02(\t\x12\x1a\n\x12\x66ilter_window_type\x18\x02 \x02(\t\x12\x1a\n\x12\x66ilter_window_size\x18\x03 \x02(\t\x1a)\n\x05Match\x12\x11\n\tcondition\x18\x07 \x02(\t\x12\r\n\x05value\x18\x08 \x02(\t\x1a\x37\n\x06\x41\x63tion\x12\x0c\n\x04type\x18\x01 \x02(\t\x12\x11\n\tfunc_name\x18\x02 \x02(\t\x12\x0c\n\x04\x61rgs\x18\x03 \x02(\t\"*\n\nPermanence\x12\r\n\tTRANSIENT\x10\x00\x12\r\n\tPERMANENT\x10\x01\"e\n\x07MsgDesc\x12\x10\n\x08msg_type\x18\x01 \x02(\t\x12\x11\n\texec_time\x18\x02 \x01(\t\x12\x16\n\x0etransaction_id\x18\x03 \x01(\t\x12\x0c\n\x04uuid\x18\x04 \x01(\t\x12\x0f\n\x07msg_set\x18\x05 \x01(\x08\"~\n\x06Module\x12\n\n\x02id\x18\x01 \x02(\r\x12\x0c\n\x04name\x18\x02 \x02(\t\x12@\n\tfunctions\x18\x04 \x03(\x0b\x32-.wishful_controller.framework.Module.Function\x1a\x18\n\x08\x46unction\x12\x0c\n\x04name\x18\x01 \x02(\t\"\x8a\x01\n\tInterface\x12\n\n\x02id\x18\x01 \x02(\r\x12\x0c\n\x04name\x18\x02 \x02(\t\x12?\n\x07modules\x18\x04 \x03(\x0b\x32..wishful_controller.framework.Interface.Module\x1a\"\n\x06Module\x12\n\n\x02id\x18\x01 \x02(\r\x12\x0c\n\x04name\x18\x02 \x02(\t\"\xb0\x01\n\nNewNodeMsg\x12\x12\n\nagent_uuid\x18\x01 \x02(\t\x12\x0c\n\x04name\x18\x02 \x01(\t\x12\x0c\n\x04info\x18\x03 \x01(\t\x12\x35\n\x07modules\x18\x04 \x03(\x0b\x32$.wishful_controller.framework.Module\x12;\n\ninterfaces\x18\x05 \x03(\x0b\x32\'.wishful_controller.framework.Interface\"Y\n\nNewNodeAck\x12\x0e\n\x06status\x18\x01 \x02(\x08\x12\x17\n\x0f\x63ontroller_uuid\x18\x02 \x01(\t\x12\x12\n\nagent_uuid\x18\x03 \x01(\t\x12\x0e\n\x06topics\x18\x04 \x03(\t\"1\n\x0bNodeExitMsg\x12\x12\n\nagent_uuid\x18\x01 \x02(\t\x12\x0e\n\x06reason\x18\x02 \x01(\t\"K\n\x17\x43ontrollerDiscoveredMsg\x12\x11\n\tdown_link\x18\x01 \x01(\t\x12\x0f\n\x07up_link\x18\x02 \x01(\t\x12\x0c\n\x04pair\x18\x03 \x01(\t\"%\n\x13\x44iscoverySuccessMsg\x12\x0e\n\x06status\x18\x01 \x02(\x08\"%\n\x13\x44iscoveryRestartMsg\x12\x0e\n\x06reason\x18\x01 \x01(\t\")\n\x08HelloMsg\x12\x0c\n\x04uuid\x18\x01 \x02(\t\x12\x0f\n\x07timeout\x18\x02 \x02(\r\"!\n\x10\x45xampleModuleReq\x12\r\n\x05hello\x18\x01 \x01(\t\"!\n\x10\x45xampleModuleAck\x12\r\n\x05hello\x18\x01 \x02(\t')
+  serialized_pb=_b('\n\x10management.proto\x12\x1cwishful_controller.framework\"\xc8\x02\n\x07\x43mdDesc\x12\x0c\n\x04type\x18\x01 \x02(\t\x12\x11\n\tfunc_name\x18\x02 \x02(\t\x12\x11\n\texec_time\x18\x03 \x01(\t\x12\x0f\n\x07\x63\x61ll_id\x18\x04 \x01(\t\x12\x11\n\tcaller_id\x18\x05 \x01(\t\x12\x16\n\x0etransaction_id\x18\x06 \x01(\t\x12\x11\n\tinterface\x18\x07 \x01(\t\x12U\n\x12serialization_type\x18\x08 \x01(\x0e\x32\x33.wishful_controller.framework.CmdDesc.Serialization:\x04NONE\x12\x17\n\x0frepeat_interval\x18\t \x01(\t\x12\x15\n\rrepeat_number\x18\n \x01(\r\"3\n\rSerialization\x12\x08\n\x04NONE\x10\x00\x12\n\n\x06PICKLE\x10\x01\x12\x0c\n\x08PROTOBUF\x10\x02\"\xb1\x05\n\x08RuleDesc\x12;\n\x05\x65vent\x18\x01 \x02(\x0b\x32,.wishful_controller.framework.RuleDesc.Event\x12=\n\x06\x66ilter\x18\x02 \x03(\x0b\x32-.wishful_controller.framework.RuleDesc.Filter\x12;\n\x05match\x18\x03 \x01(\x0b\x32,.wishful_controller.framework.RuleDesc.Match\x12P\n\npermanence\x18\x04 \x01(\x0e\x32\x31.wishful_controller.framework.RuleDesc.Permanence:\tTRANSIENT\x12=\n\x06\x61\x63tion\x18\x05 \x01(\x0b\x32-.wishful_controller.framework.RuleDesc.Action\x12\x10\n\x08\x63\x61llback\x18\x06 \x01(\t\x1a\x62\n\x05\x45vent\x12\x0c\n\x04type\x18\x01 \x02(\t\x12\x11\n\tfunc_name\x18\x02 \x02(\t\x12\x11\n\tinterface\x18\x03 \x01(\t\x12\x0c\n\x04\x61rgs\x18\x04 \x02(\t\x12\x17\n\x0frepeat_interval\x18\x05 \x02(\t\x1aU\n\x06\x46ilter\x12\x13\n\x0b\x66ilter_type\x18\x01 \x02(\t\x12\x1a\n\x12\x66ilter_window_type\x18\x02 \x02(\t\x12\x1a\n\x12\x66ilter_window_size\x18\x03 \x02(\t\x1a)\n\x05Match\x12\x11\n\tcondition\x18\x07 \x02(\t\x12\r\n\x05value\x18\x08 \x02(\t\x1a\x37\n\x06\x41\x63tion\x12\x0c\n\x04type\x18\x01 \x02(\t\x12\x11\n\tfunc_name\x18\x02 \x02(\t\x12\x0c\n\x04\x61rgs\x18\x03 \x02(\t\"*\n\nPermanence\x12\r\n\tTRANSIENT\x10\x00\x12\r\n\tPERMANENT\x10\x01\"e\n\x07MsgDesc\x12\x10\n\x08msg_type\x18\x01 \x02(\t\x12\x11\n\texec_time\x18\x02 \x01(\t\x12\x16\n\x0etransaction_id\x18\x03 \x01(\t\x12\x0c\n\x04uuid\x18\x04 \x01(\t\x12\x0f\n\x07msg_set\x18\x05 \x01(\x08\"~\n\x06Module\x12\n\n\x02id\x18\x01 \x02(\r\x12\x0c\n\x04name\x18\x02 \x02(\t\x12@\n\tfunctions\x18\x04 \x03(\x0b\x32-.wishful_controller.framework.Module.Function\x1a\x18\n\x08\x46unction\x12\x0c\n\x04name\x18\x01 \x02(\t\"\x8a\x01\n\tInterface\x12\n\n\x02id\x18\x01 \x02(\r\x12\x0c\n\x04name\x18\x02 \x02(\t\x12?\n\x07modules\x18\x04 \x03(\x0b\x32..wishful_controller.framework.Interface.Module\x1a\"\n\x06Module\x12\n\n\x02id\x18\x01 \x02(\r\x12\x0c\n\x04name\x18\x02 \x02(\t\"\xbc\x01\n\nNewNodeMsg\x12\x12\n\nagent_uuid\x18\x01 \x02(\t\x12\n\n\x02ip\x18\x02 \x02(\t\x12\x0c\n\x04name\x18\x03 \x01(\t\x12\x0c\n\x04info\x18\x04 \x01(\t\x12\x35\n\x07modules\x18\x05 \x03(\x0b\x32$.wishful_controller.framework.Module\x12;\n\ninterfaces\x18\x06 \x03(\x0b\x32\'.wishful_controller.framework.Interface\"Y\n\nNewNodeAck\x12\x0e\n\x06status\x18\x01 \x02(\x08\x12\x17\n\x0f\x63ontroller_uuid\x18\x02 \x01(\t\x12\x12\n\nagent_uuid\x18\x03 \x01(\t\x12\x0e\n\x06topics\x18\x04 \x03(\t\"1\n\x0bNodeExitMsg\x12\x12\n\nagent_uuid\x18\x01 \x02(\t\x12\x0e\n\x06reason\x18\x02 \x01(\t\"K\n\x17\x43ontrollerDiscoveredMsg\x12\x11\n\tdown_link\x18\x01 \x01(\t\x12\x0f\n\x07up_link\x18\x02 \x01(\t\x12\x0c\n\x04pair\x18\x03 \x01(\t\"%\n\x13\x44iscoverySuccessMsg\x12\x0e\n\x06status\x18\x01 \x02(\x08\"%\n\x13\x44iscoveryRestartMsg\x12\x0e\n\x06reason\x18\x01 \x01(\t\")\n\x08HelloMsg\x12\x0c\n\x04uuid\x18\x01 \x02(\t\x12\x0f\n\x07timeout\x18\x02 \x02(\r\"!\n\x10\x45xampleModuleReq\x12\r\n\x05hello\x18\x01 \x01(\t\"!\n\x10\x45xampleModuleAck\x12\r\n\x05hello\x18\x01 \x02(\t')
 )
 _sym_db.RegisterFileDescriptor(DESCRIPTOR)
 
@@ -638,29 +638,36 @@ _NEWNODEMSG = _descriptor.Descriptor(
       is_extension=False, extension_scope=None,
       options=None),
     _descriptor.FieldDescriptor(
-      name='name', full_name='wishful_controller.framework.NewNodeMsg.name', index=1,
-      number=2, type=9, cpp_type=9, label=1,
+      name='ip', full_name='wishful_controller.framework.NewNodeMsg.ip', index=1,
+      number=2, type=9, cpp_type=9, label=2,
       has_default_value=False, default_value=_b("").decode('utf-8'),
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       options=None),
     _descriptor.FieldDescriptor(
-      name='info', full_name='wishful_controller.framework.NewNodeMsg.info', index=2,
+      name='name', full_name='wishful_controller.framework.NewNodeMsg.name', index=2,
       number=3, type=9, cpp_type=9, label=1,
       has_default_value=False, default_value=_b("").decode('utf-8'),
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       options=None),
     _descriptor.FieldDescriptor(
-      name='modules', full_name='wishful_controller.framework.NewNodeMsg.modules', index=3,
-      number=4, type=11, cpp_type=10, label=3,
+      name='info', full_name='wishful_controller.framework.NewNodeMsg.info', index=3,
+      number=4, type=9, cpp_type=9, label=1,
+      has_default_value=False, default_value=_b("").decode('utf-8'),
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      options=None),
+    _descriptor.FieldDescriptor(
+      name='modules', full_name='wishful_controller.framework.NewNodeMsg.modules', index=4,
+      number=5, type=11, cpp_type=10, label=3,
       has_default_value=False, default_value=[],
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       options=None),
     _descriptor.FieldDescriptor(
-      name='interfaces', full_name='wishful_controller.framework.NewNodeMsg.interfaces', index=4,
-      number=5, type=11, cpp_type=10, label=3,
+      name='interfaces', full_name='wishful_controller.framework.NewNodeMsg.interfaces', index=5,
+      number=6, type=11, cpp_type=10, label=3,
       has_default_value=False, default_value=[],
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
@@ -677,7 +684,7 @@ _NEWNODEMSG = _descriptor.Descriptor(
   oneofs=[
   ],
   serialized_start=1446,
-  serialized_end=1622,
+  serialized_end=1634,
 )
 
 
@@ -727,8 +734,8 @@ _NEWNODEACK = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=1624,
-  serialized_end=1713,
+  serialized_start=1636,
+  serialized_end=1725,
 )
 
 
@@ -764,8 +771,8 @@ _NODEEXITMSG = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=1715,
-  serialized_end=1764,
+  serialized_start=1727,
+  serialized_end=1776,
 )
 
 
@@ -808,8 +815,8 @@ _CONTROLLERDISCOVEREDMSG = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=1766,
-  serialized_end=1841,
+  serialized_start=1778,
+  serialized_end=1853,
 )
 
 
@@ -838,8 +845,8 @@ _DISCOVERYSUCCESSMSG = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=1843,
-  serialized_end=1880,
+  serialized_start=1855,
+  serialized_end=1892,
 )
 
 
@@ -868,8 +875,8 @@ _DISCOVERYRESTARTMSG = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=1882,
-  serialized_end=1919,
+  serialized_start=1894,
+  serialized_end=1931,
 )
 
 
@@ -905,8 +912,8 @@ _HELLOMSG = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=1921,
-  serialized_end=1962,
+  serialized_start=1933,
+  serialized_end=1974,
 )
 
 
@@ -935,8 +942,8 @@ _EXAMPLEMODULEREQ = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=1964,
-  serialized_end=1997,
+  serialized_start=1976,
+  serialized_end=2009,
 )
 
 
@@ -965,8 +972,8 @@ _EXAMPLEMODULEACK = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=1999,
-  serialized_end=2032,
+  serialized_start=2011,
+  serialized_end=2044,
 )
 
 _CMDDESC.fields_by_name['serialization_type'].enum_type = _CMDDESC_SERIALIZATION
