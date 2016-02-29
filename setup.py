@@ -15,5 +15,5 @@ setup(
     description='WiSHFUL Framwork',
     long_description='WiSHFUL Framwork',
     keywords='wireless control',
-    install_requires=[]
+    install_requires=['protobuf']
 )
