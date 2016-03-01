@@ -20,6 +20,53 @@ message CmdDesc {
     optional uint32 repeat_number = 10;
 }
 
+
+message Module {
+    message Function {
+        required string name = 1;
+    }
+    required uint32 id = 1;
+    required string name = 2;
+    repeated Function functions = 4;
+}
+
+message Interface {
+    message Module {
+        required uint32 id = 1;
+        required string name = 2;
+    }
+    required uint32 id = 1;
+    required string name = 2;
+    repeated Module modules = 4;
+}
+
+message NewNodeMsg {
+    required string agent_uuid = 1;
+    required string ip = 2;
+    optional string name = 3;
+    optional string info = 4;
+
+    repeated Module modules = 5;
+    repeated Interface interfaces = 6;
+}
+
+message NewNodeAck {
+    required bool status = 1;
+    optional string controller_uuid = 2;
+    optional string agent_uuid = 3;
+    repeated string topics = 4;
+}
+
+message NodeExitMsg {
+    required string agent_uuid = 1;
+    optional string reason = 2;
+}
+
+message HelloMsg {
+    required string uuid = 1;
+    required uint32 timeout = 2;
+}
+
 message RuleDesc {
     message Event {
         required string type = 1;
@@ -52,85 +99,4 @@ message RuleDesc {
     optional Permanence permanence = 4 [default = TRANSIENT];
     optional Action action = 5;
     optional string callback = 6;
-}
-
-message MsgDesc {
-    required string msg_type = 1;
-    optional string exec_time = 2;
-    optional string transaction_id = 3;
-    optional string uuid = 4;
-    optional bool msg_set = 5; // Setter/Getter
-}
-
-message Module {
-    message Function {
-        required string name = 1;
-    }
-    required uint32 id = 1;
-    required string name = 2;
-    repeated Function functions = 4;
-}
-
-message Interface {
-    message Module {
-        required uint32 id = 1;
-        required string name = 2;
-    }
-    required uint32 id = 1;
-    required string name = 2;
-    repeated Module modules = 4;
-}
-
-message NewNodeMsg {
-    required string agent_uuid = 1;
-    required string ip = 2;
-    optional string name = 3;
-    optional string info = 4;
-
-    repeated Module modules = 5;
-    repeated Interface interfaces = 6;
-}
-
-
-message NewNodeAck {
-    required bool status = 1;
-    optional string controller_uuid = 2;
-    optional string agent_uuid = 3;
-    repeated string topics = 4;
-}
-
-
-message NodeExitMsg {
-    required string agent_uuid = 1;
-    optional string reason = 2;
-}
-
-
-message ControllerDiscoveredMsg {
-    optional string down_link = 1;
-    optional string up_link = 2;
-    optional string pair = 3;
-}
-
-message DiscoverySuccessMsg {
-    required bool status = 1;
-}
-
-message DiscoveryRestartMsg {
-    optional string reason = 1;
-}
-
-message HelloMsg {
-    required string uuid = 1;
-    required uint32 timeout = 2;
-}
-
-
-message ExampleModuleReq {
-    optional string hello = 1;
-}
-
-
-message ExampleModuleAck {
-    required string hello = 1;
 }
