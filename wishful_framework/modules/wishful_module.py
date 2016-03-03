@@ -20,12 +20,12 @@ class discover_controller(object):
         f._discover_controller = self.discover_controller
         return f
 
-class loop(object):
+class run_in_thread(object):
     def __init__(self, ):
-        self.loop = True
+        self.create_new_thread = True
 
     def __call__(self, f):
-        f._loop = self.loop
+        f._create_new_thread = self.create_new_thread
         return f
 
 
@@ -123,8 +123,8 @@ class WishfulModule(object):
 
 
     def execute_function(self, func):
-        loop = hasattr(func, '_loop')
-        if loop:
+        create_new_thread = hasattr(func, '_create_new_thread')
+        if create_new_thread:
             self.threads = threading.Thread(target=func)
             self.threads.setDaemon(True)
             self.threads.start()
