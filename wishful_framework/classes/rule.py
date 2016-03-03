@@ -42,9 +42,8 @@ class Rule(object):
         cmdDesc.func_name = self.event.func_name
         cmdDesc.serialization_type = msgs.CmdDesc.PICKLE
         args = ()
-        serialized_args = pickle.dumps(args)
 
-        msgContainter = [group, cmdDesc.SerializeToString(), serialized_args]
+        msgContainter = [group, cmdDesc, args]
         retVal = self.manager.execute_command(self.event.upi_type, msgContainter)
 
         retVal = retVal[2]
