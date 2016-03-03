@@ -5,10 +5,6 @@ import sys
 import time
 import threading
 import wishful_framework as msgs
-try:
-   import cPickle as pickle
-except:
-   import pickle
 
 __author__ = "Piotr Gawlowicz"
 __copyright__ = "Copyright (c) 2015, Technische Universität Berlin"
