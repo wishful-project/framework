@@ -102,16 +102,19 @@ class WishfulModule(object):
         self.interface = None
 
 
+    def set_agent(self, agent):
+        pass
+
+
+    def set_controller(self, controller):
+        pass
+
+
     def get_capabilities(self):
         return self.upis_capabilities
 
 
-    def set_controller(self):
-        #discover controller discovery function
-        pass
-
-
-    def get_controller(self):
+    def get_discovered_controller_address(self):
         #discover controller discovery function
         funcs = [method for method in dir(self) if callable(getattr(self, method)) and hasattr(getattr(self, method), '_discover_controller')]
         fname = funcs[0]
