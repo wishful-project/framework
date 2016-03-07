@@ -7,10 +7,7 @@ __email__ = "{gawlowicz, zubow}@tkn.tu-berlin.de"
 
 
 class Action(object):
-    def __init__(self, upi_type, func_name, args):
-        self.log = logging.getLogger("{module}.{name}".format(
-            module=self.__class__.__module__, name=self.__class__.__name__))
-        
-        self.upi_type = upi_type
-        self.func_name = func_name
+    def __init__(self, func, args=()):       
+        self.upi_type = func.__module__
+        self.upi_func = func.__name__
         self.args = args

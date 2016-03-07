@@ -7,10 +7,17 @@ __email__ = "{gawlowicz, zubow}@tkn.tu-berlin.de"
 
 
 class Filter(object):
-    def __init__(self, filter_type, window_type, window_size):
-        self.log = logging.getLogger("{module}.{name}".format(
-            module=self.__class__.__module__, name=self.__class__.__name__))
-        
-    	self.filter_type = filter_type
-    	self.window_type = window_type
-    	self.window_size = window_size
+    def __init__(self, filter_type):
+        self.filter_type = filter_type
+
+
+class MovAvgFilter(Filter):
+    def __init__(self, window_size):
+        super(MovAvgFilter, self).__init__("MovAvgFilter")
+        self.window_size = window_size
+
+
+class PeakDetector(Filter):
+    def __init__(self, threshhold):
+        super(PeakDetector, self).__init__("PeakDetector")      
+        self.threshhold = threshhold

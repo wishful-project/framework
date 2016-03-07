@@ -7,10 +7,21 @@ __email__ = "{gawlowicz, zubow}@tkn.tu-berlin.de"
 
 
 class Event(object):
-    def __init__(self, upi_type, func_name, interval):
-        self.log = logging.getLogger("{module}.{name}".format(
-            module=self.__class__.__module__, name=self.__class__.__name__))
+    def __init__(self):
+        pass
 
-        self.upi_type = upi_type
-        self.func_name = func_name
-        self.repeat_interval = interval
+
+class TimeEvent(Event):
+    def __init__(self, func, args=(), interval=1, iface=None):
+        super(TimeEvent, self).__init__()
+        self.upi_type = func.__module__
+        self.upi_func = func.__name__
+        self.args = args
+        self.interval = interval
+        self.iface = iface
+
+
+class PktEvent(Event):
+    def __init__(self, iface):
+        super(PktEvent, self).__init__()
+        self.iface = iface

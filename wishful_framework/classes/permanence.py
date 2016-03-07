@@ -6,7 +6,6 @@ __version__ = "0.1.0"
 __email__ = "{gawlowicz, zubow}@tkn.tu-berlin.de"
 
 
-class Match(object):
-    def __init__(self, condition, value):
-        self.condition = condition
-        self.value = value
+class Permanance(object):
+    TRANSIENT=1
+    PERSISTENT=2
