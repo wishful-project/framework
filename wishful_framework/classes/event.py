@@ -37,3 +37,11 @@ class PktEvent(Event):
     def __init__(self, iface):
         super(PktEvent, self).__init__("PktEvent")
         self.iface = iface
+
+class PktMatch(object):
+    def __init__(self, matchStr):
+        self.matchStr = matchStr
+
+class FieldSelector(object):
+    def __init__(self, field):
+        self.field = field
