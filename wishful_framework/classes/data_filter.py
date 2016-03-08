@@ -18,6 +18,6 @@ class MovAvgFilter(Filter):
 
 
 class PeakDetector(Filter):
-    def __init__(self, threshhold):
+    def __init__(self, threshold):
         super(PeakDetector, self).__init__("PeakDetector")      
-        self.threshhold = threshhold
+        self.threshold = threshold
