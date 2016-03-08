@@ -22,6 +22,8 @@ class TimeEvent(Event):
         self.upi_func = func.__name__
         
         self.kwargs = {}
+        self.kwargs["args"] = ()
+        self.kwargs["kwargs"] = {}
         if args:
             self.kwargs["args"] = args
         if kwargs:

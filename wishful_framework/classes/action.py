@@ -7,7 +7,19 @@ __email__ = "{gawlowicz, zubow}@tkn.tu-berlin.de"
 
 
 class Action(object):
-    def __init__(self, func, args=()):       
-        self.upi_type = func.__module__
+    def __init__(self, func, iface=None, args=(), kwargs={}):       
+        upiType = func.__module__
+        upiType = upiType.split(".")
+        upiType = upiType[len(upiType)-1]
+
+        self.upi_type = upiType
         self.upi_func = func.__name__
-        self.args = args
+        self.iface = iface
+
+        self.kwargs = {}
+        self.kwargs["args"] = ()
+        self.kwargs["kwargs"] = {}
+        if args:
+            self.kwargs["args"] = args
+        if kwargs:
+            self.kwargs["kwargs"] = kwargs
