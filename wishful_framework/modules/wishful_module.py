@@ -91,12 +91,11 @@ class WishfulModule(object):
 
         self.id = None
         self.name = self.__class__.__name__
-        self.capabilities = []
 
-        #discover UPI function implementation and create upi_capabilities list
+        #discover UPI function implementation and create capabilities list
         func_name = [method for method in dir(self) if callable(getattr(self, method)) and hasattr(getattr(self, method), '_upi_fname')]
-        self.upi_callbacks = {list(getattr(self, method)._upi_fname)[0] : method for method in func_name}
-        self.upis_capabilities = self.upi_callbacks.keys()
+        self.callbacks = {list(getattr(self, method)._upi_fname)[0] : method for method in func_name}
+        self.capabilities = self.callbacks.keys()
         
         #interface to be used in UPI functions, it is set before function call
         self.interface = None
@@ -111,7 +110,7 @@ class WishfulModule(object):
 
 
     def get_capabilities(self):
-        return self.upis_capabilities
+        return self.capabilities
 
 
     def get_discovered_controller_address(self):

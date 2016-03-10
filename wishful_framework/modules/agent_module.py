@@ -23,12 +23,7 @@ class AgentModule(WishfulModule):
 
     def send_to_module(self, msgContainer):
         self.log.debug("Module {} received cmd".format(self.__class__.__name__))
-        result = self.process_cmds(msgContainer)
-        self.log.debug("Module {} return value".format(self.__class__.__name__))
-        return result
-
-
-    def process_cmds(self, msgContainer):
+        
         assert len(msgContainer) == 3
         dest = msgContainer[0]
         cmdDesc = msgContainer[1]
