@@ -68,7 +68,7 @@ def get_method_sig(method):
 def _add_function(fn, *args, **kwargs):
     def wrapped(self, *args, **kwargs):
         #send function to controller
-        return self._ctrl.send_cmd(upi_type=self._msg_type, fname=fn.__name__, args=args, kwargs=kwargs)
+        return self._ctrl.exec_cmd(upi_type=self._msg_type, fname=fn.__name__, args=args, kwargs=kwargs)
     return wrapped(*args, **kwargs)
 
 class UpiBase(object):
