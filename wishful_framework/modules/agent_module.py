@@ -37,7 +37,6 @@ class AgentModule(WishfulModule):
         if cmdDesc.HasField('interface'):
             self.interface = cmdDesc.interface
 
-        response = None
         #TODO: check if function is available
         func = getattr(self, command)
 
@@ -47,23 +46,30 @@ class AgentModule(WishfulModule):
             my_args = kwargs['args']
             my_kwargs = kwargs['kwargs']
 
-        retVal = func(*my_args, **my_kwargs)
+        retVal = None
+        exception = False
+        try:
+            retVal = func(*my_args, **my_kwargs)
+        except Exception as e:
+            self.log.warning("Exception: {}".format(e))
+            exception = True
+            retVal = e
 
-        #TODO: add exception handling
-        #try:
-        #    retVal = func(*my_args)
-        #except Exception as e:
-        #    retVal = e
+        dest = "controller"
+        respDesc = msgs.CmdDesc()
+        respDesc.type = cmdDesc.type
+        respDesc.func_name = cmdDesc.func_name
+        respDesc.call_id = cmdDesc.call_id
 
-        if retVal is not None:
-            dest = "controller"
-            respDesc = msgs.CmdDesc()
-            respDesc.type = cmdDesc.type
-            respDesc.func_name = cmdDesc.func_name
-            respDesc.call_id = cmdDesc.call_id
-            
-            #Serialize return value
-            respDesc.serialization_type = msgs.CmdDesc.PICKLE
-            response = [dest, respDesc, retVal]
+        #TODO: define new protobuf message for return values; currently using repeat_number in CmdDesc 
+        #0-executed correctly, 1-exception
+        if exception:
+            respDesc.repeat_number = 1
+        else:
+            respDesc.repeat_number = 0
+
+        #Serialize return value
+        respDesc.serialization_type = msgs.CmdDesc.PICKLE
+        response = [dest, respDesc, retVal]
 
         return response
