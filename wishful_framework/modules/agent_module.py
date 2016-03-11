@@ -47,10 +47,12 @@ class AgentModule(WishfulModule):
             my_kwargs = kwargs['kwargs']
 
         retVal = None
+        exception = False
         try:
             retVal = func(*my_args, **my_kwargs)
         except Exception as e:
             self.log.warning("Exception: {}".format(e))
+            exception = True
             retVal = e
 
         dest = "controller"
@@ -58,7 +60,14 @@ class AgentModule(WishfulModule):
         respDesc.type = cmdDesc.type
         respDesc.func_name = cmdDesc.func_name
         respDesc.call_id = cmdDesc.call_id
-        
+
+        #TODO: define new protobuf message for return values; currently using repeat_number in CmdDesc 
+        #0-executed correctly, 1-exception
+        if exception:
+            respDesc.repeat_number = 1
+        else:
+            respDesc.repeat_number = 0
+
         #Serialize return value
         respDesc.serialization_type = msgs.CmdDesc.PICKLE
         response = [dest, respDesc, retVal]
