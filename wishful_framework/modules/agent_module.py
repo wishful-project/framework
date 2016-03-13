@@ -43,8 +43,14 @@ class AgentModule(WishfulModule):
             self.firstCallToModule = False
             self.first_call_to_module()
 
+
         #TODO: check if function is available
         func = getattr(self, command)
+
+        #if there is function that has to be called before UPI function, call it
+        if hasattr(func, '_beforeCall'):
+            before_func = getattr(self, func._beforeCall)
+            before_func()
 
         my_args = ()
         my_kwargs = {}
@@ -60,6 +66,11 @@ class AgentModule(WishfulModule):
             self.log.warning("Exception: {}".format(e))
             exception = True
             retVal = e
+
+        #if there is function that has to be called after UPI function, call it
+        if hasattr(func, '_afterCall'):
+            after_func = getattr(self, func._afterCall)
+            after_func()
 
         dest = "controller"
         respDesc = msgs.CmdDesc()

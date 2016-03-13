@@ -86,7 +86,7 @@ class on_first_call_to_module(object):
 
 class before_call(object):
     def __init__(self, function):
-        self.beforeCall = function
+        self.beforeCall = function.__name__
 
     def __call__(self, f):
         f._beforeCall = self.beforeCall
@@ -95,7 +95,7 @@ class before_call(object):
 
 class after_call(object):
     def __init__(self, function):
-        self.afterCall = function
+        self.afterCall = function.__name__
 
     def __call__(self, f):
         f._afterCall = self.afterCall
