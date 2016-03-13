@@ -37,6 +37,12 @@ class AgentModule(WishfulModule):
         if cmdDesc.HasField('interface'):
             self.interface = cmdDesc.interface
 
+
+        #if first call to module, execute function decorated with before_firtst_call_to_module
+        if self.firstCallToModule:
+            self.firstCallToModule = False
+            self.first_call_to_module()
+
         #TODO: check if function is available
         func = getattr(self, command)
 
