@@ -18,7 +18,7 @@ _sym_db = _symbol_database.Default()
 DESCRIPTOR = _descriptor.FileDescriptor(
   name='management.proto',
   package='wishful_controller.framework',
-  serialized_pb=_b('\n\x10management.proto\x12\x1cwishful_controller.framework\"\xc8\x02\n\x07\x43mdDesc\x12\x0c\n\x04type\x18\x01 \x02(\t\x12\x11\n\tfunc_name\x18\x02 \x02(\t\x12\x11\n\texec_time\x18\x03 \x01(\t\x12\x0f\n\x07\x63\x61ll_id\x18\x04 \x01(\t\x12\x11\n\tcaller_id\x18\x05 \x01(\t\x12\x16\n\x0etransaction_id\x18\x06 \x01(\t\x12\x11\n\tinterface\x18\x07 \x01(\t\x12U\n\x12serialization_type\x18\x08 \x01(\x0e\x32\x33.wishful_controller.framework.CmdDesc.Serialization:\x04NONE\x12\x17\n\x0frepeat_interval\x18\t \x01(\t\x12\x15\n\rrepeat_number\x18\n \x01(\r\"3\n\rSerialization\x12\x08\n\x04NONE\x10\x00\x12\n\n\x06PICKLE\x10\x01\x12\x0c\n\x08PROTOBUF\x10\x02\"~\n\x06Module\x12\n\n\x02id\x18\x01 \x02(\r\x12\x0c\n\x04name\x18\x02 \x02(\t\x12@\n\tfunctions\x18\x04 \x03(\x0b\x32-.wishful_controller.framework.Module.Function\x1a\x18\n\x08\x46unction\x12\x0c\n\x04name\x18\x01 \x02(\t\"\x8a\x01\n\tInterface\x12\n\n\x02id\x18\x01 \x02(\r\x12\x0c\n\x04name\x18\x02 \x02(\t\x12?\n\x07modules\x18\x04 \x03(\x0b\x32..wishful_controller.framework.Interface.Module\x1a\"\n\x06Module\x12\n\n\x02id\x18\x01 \x02(\r\x12\x0c\n\x04name\x18\x02 \x02(\t\"\xbc\x01\n\nNewNodeMsg\x12\x12\n\nagent_uuid\x18\x01 \x02(\t\x12\n\n\x02ip\x18\x02 \x02(\t\x12\x0c\n\x04name\x18\x03 \x01(\t\x12\x0c\n\x04info\x18\x04 \x01(\t\x12\x35\n\x07modules\x18\x05 \x03(\x0b\x32$.wishful_controller.framework.Module\x12;\n\ninterfaces\x18\x06 \x03(\x0b\x32\'.wishful_controller.framework.Interface\"Y\n\nNewNodeAck\x12\x0e\n\x06status\x18\x01 \x02(\x08\x12\x17\n\x0f\x63ontroller_uuid\x18\x02 \x01(\t\x12\x12\n\nagent_uuid\x18\x03 \x01(\t\x12\x0e\n\x06topics\x18\x04 \x03(\t\"1\n\x0bNodeExitMsg\x12\x12\n\nagent_uuid\x18\x01 \x02(\t\x12\x0e\n\x06reason\x18\x02 \x01(\t\")\n\x08HelloMsg\x12\x0c\n\x04uuid\x18\x01 \x02(\t\x12\x0f\n\x07timeout\x18\x02 \x02(\r\"\xb1\x05\n\x08RuleDesc\x12;\n\x05\x65vent\x18\x01 \x02(\x0b\x32,.wishful_controller.framework.RuleDesc.Event\x12=\n\x06\x66ilter\x18\x02 \x03(\x0b\x32-.wishful_controller.framework.RuleDesc.Filter\x12;\n\x05match\x18\x03 \x01(\x0b\x32,.wishful_controller.framework.RuleDesc.Match\x12P\n\npermanence\x18\x04 \x01(\x0e\x32\x31.wishful_controller.framework.RuleDesc.Permanence:\tTRANSIENT\x12=\n\x06\x61\x63tion\x18\x05 \x01(\x0b\x32-.wishful_controller.framework.RuleDesc.Action\x12\x10\n\x08\x63\x61llback\x18\x06 \x01(\t\x1a\x62\n\x05\x45vent\x12\x0c\n\x04type\x18\x01 \x02(\t\x12\x11\n\tfunc_name\x18\x02 \x02(\t\x12\x11\n\tinterface\x18\x03 \x01(\t\x12\x0c\n\x04\x61rgs\x18\x04 \x02(\t\x12\x17\n\x0frepeat_interval\x18\x05 \x02(\t\x1aU\n\x06\x46ilter\x12\x13\n\x0b\x66ilter_type\x18\x01 \x02(\t\x12\x1a\n\x12\x66ilter_window_type\x18\x02 \x02(\t\x12\x1a\n\x12\x66ilter_window_size\x18\x03 \x02(\t\x1a)\n\x05Match\x12\x11\n\tcondition\x18\x07 \x02(\t\x12\r\n\x05value\x18\x08 \x02(\t\x1a\x37\n\x06\x41\x63tion\x12\x0c\n\x04type\x18\x01 \x02(\t\x12\x11\n\tfunc_name\x18\x02 \x02(\t\x12\x0c\n\x04\x61rgs\x18\x03 \x02(\t\"*\n\nPermanence\x12\r\n\tTRANSIENT\x10\x00\x12\r\n\tPERMANENT\x10\x01')
+  serialized_pb=_b('\n\x10management.proto\x12\x1cwishful_controller.framework\"\xc8\x02\n\x07\x43mdDesc\x12\x0c\n\x04type\x18\x01 \x02(\t\x12\x11\n\tfunc_name\x18\x02 \x02(\t\x12\x11\n\texec_time\x18\x03 \x01(\t\x12\x0f\n\x07\x63\x61ll_id\x18\x04 \x01(\t\x12\x11\n\tcaller_id\x18\x05 \x01(\t\x12\x16\n\x0etransaction_id\x18\x06 \x01(\t\x12\x11\n\tinterface\x18\x07 \x01(\t\x12U\n\x12serialization_type\x18\x08 \x01(\x0e\x32\x33.wishful_controller.framework.CmdDesc.Serialization:\x04NONE\x12\x17\n\x0frepeat_interval\x18\t \x01(\t\x12\x15\n\rrepeat_number\x18\n \x01(\r\"3\n\rSerialization\x12\x08\n\x04NONE\x10\x00\x12\n\n\x06PICKLE\x10\x01\x12\x0c\n\x08PROTOBUF\x10\x02\"\xdd\x01\n\x06Module\x12\n\n\x02id\x18\x01 \x02(\r\x12\x0c\n\x04name\x18\x02 \x02(\t\x12@\n\tfunctions\x18\x03 \x03(\x0b\x32-.wishful_controller.framework.Module.Function\x12\x42\n\ngenerators\x18\x04 \x03(\x0b\x32..wishful_controller.framework.Module.Generator\x1a\x18\n\x08\x46unction\x12\x0c\n\x04name\x18\x01 \x02(\t\x1a\x19\n\tGenerator\x12\x0c\n\x04name\x18\x01 \x02(\t\"\x8a\x01\n\tInterface\x12\n\n\x02id\x18\x01 \x02(\r\x12\x0c\n\x04name\x18\x02 \x02(\t\x12?\n\x07modules\x18\x04 \x03(\x0b\x32..wishful_controller.framework.Interface.Module\x1a\"\n\x06Module\x12\n\n\x02id\x18\x01 \x02(\r\x12\x0c\n\x04name\x18\x02 \x02(\t\"\xbc\x01\n\nNewNodeMsg\x12\x12\n\nagent_uuid\x18\x01 \x02(\t\x12\n\n\x02ip\x18\x02 \x02(\t\x12\x0c\n\x04name\x18\x03 \x01(\t\x12\x0c\n\x04info\x18\x04 \x01(\t\x12\x35\n\x07modules\x18\x05 \x03(\x0b\x32$.wishful_controller.framework.Module\x12;\n\ninterfaces\x18\x06 \x03(\x0b\x32\'.wishful_controller.framework.Interface\"Y\n\nNewNodeAck\x12\x0e\n\x06status\x18\x01 \x02(\x08\x12\x17\n\x0f\x63ontroller_uuid\x18\x02 \x01(\t\x12\x12\n\nagent_uuid\x18\x03 \x01(\t\x12\x0e\n\x06topics\x18\x04 \x03(\t\"1\n\x0bNodeExitMsg\x12\x12\n\nagent_uuid\x18\x01 \x02(\t\x12\x0e\n\x06reason\x18\x02 \x01(\t\")\n\x08HelloMsg\x12\x0c\n\x04uuid\x18\x01 \x02(\t\x12\x0f\n\x07timeout\x18\x02 \x02(\r\"\xb1\x05\n\x08RuleDesc\x12;\n\x05\x65vent\x18\x01 \x02(\x0b\x32,.wishful_controller.framework.RuleDesc.Event\x12=\n\x06\x66ilter\x18\x02 \x03(\x0b\x32-.wishful_controller.framework.RuleDesc.Filter\x12;\n\x05match\x18\x03 \x01(\x0b\x32,.wishful_controller.framework.RuleDesc.Match\x12P\n\npermanence\x18\x04 \x01(\x0e\x32\x31.wishful_controller.framework.RuleDesc.Permanence:\tTRANSIENT\x12=\n\x06\x61\x63tion\x18\x05 \x01(\x0b\x32-.wishful_controller.framework.RuleDesc.Action\x12\x10\n\x08\x63\x61llback\x18\x06 \x01(\t\x1a\x62\n\x05\x45vent\x12\x0c\n\x04type\x18\x01 \x02(\t\x12\x11\n\tfunc_name\x18\x02 \x02(\t\x12\x11\n\tinterface\x18\x03 \x01(\t\x12\x0c\n\x04\x61rgs\x18\x04 \x02(\t\x12\x17\n\x0frepeat_interval\x18\x05 \x02(\t\x1aU\n\x06\x46ilter\x12\x13\n\x0b\x66ilter_type\x18\x01 \x02(\t\x12\x1a\n\x12\x66ilter_window_type\x18\x02 \x02(\t\x12\x1a\n\x12\x66ilter_window_size\x18\x03 \x02(\t\x1a)\n\x05Match\x12\x11\n\tcondition\x18\x07 \x02(\t\x12\r\n\x05value\x18\x08 \x02(\t\x1a\x37\n\x06\x41\x63tion\x12\x0c\n\x04type\x18\x01 \x02(\t\x12\x11\n\tfunc_name\x18\x02 \x02(\t\x12\x0c\n\x04\x61rgs\x18\x03 \x02(\t\"*\n\nPermanence\x12\r\n\tTRANSIENT\x10\x00\x12\r\n\tPERMANENT\x10\x01')
 )
 _sym_db.RegisterFileDescriptor(DESCRIPTOR)
 
@@ -67,8 +67,8 @@ _RULEDESC_PERMANENCE = _descriptor.EnumDescriptor(
   ],
   containing_type=None,
   options=None,
-  serialized_start=1674,
-  serialized_end=1716,
+  serialized_start=1770,
+  serialized_end=1812,
 )
 _sym_db.RegisterEnumDescriptor(_RULEDESC_PERMANENCE)
 
@@ -192,8 +192,37 @@ _MODULE_FUNCTION = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=483,
-  serialized_end=507,
+  serialized_start=552,
+  serialized_end=576,
+)
+
+_MODULE_GENERATOR = _descriptor.Descriptor(
+  name='Generator',
+  full_name='wishful_controller.framework.Module.Generator',
+  filename=None,
+  file=DESCRIPTOR,
+  containing_type=None,
+  fields=[
+    _descriptor.FieldDescriptor(
+      name='name', full_name='wishful_controller.framework.Module.Generator.name', index=0,
+      number=1, type=9, cpp_type=9, label=2,
+      has_default_value=False, default_value=_b("").decode('utf-8'),
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      options=None),
+  ],
+  extensions=[
+  ],
+  nested_types=[],
+  enum_types=[
+  ],
+  options=None,
+  is_extendable=False,
+  extension_ranges=[],
+  oneofs=[
+  ],
+  serialized_start=578,
+  serialized_end=603,
 )
 
 _MODULE = _descriptor.Descriptor(
@@ -219,6 +248,13 @@ _MODULE = _descriptor.Descriptor(
       options=None),
     _descriptor.FieldDescriptor(
       name='functions', full_name='wishful_controller.framework.Module.functions', index=2,
+      number=3, type=11, cpp_type=10, label=3,
+      has_default_value=False, default_value=[],
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      options=None),
+    _descriptor.FieldDescriptor(
+      name='generators', full_name='wishful_controller.framework.Module.generators', index=3,
       number=4, type=11, cpp_type=10, label=3,
       has_default_value=False, default_value=[],
       message_type=None, enum_type=None, containing_type=None,
@@ -227,7 +263,7 @@ _MODULE = _descriptor.Descriptor(
   ],
   extensions=[
   ],
-  nested_types=[_MODULE_FUNCTION, ],
+  nested_types=[_MODULE_FUNCTION, _MODULE_GENERATOR, ],
   enum_types=[
   ],
   options=None,
@@ -235,8 +271,8 @@ _MODULE = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=381,
-  serialized_end=507,
+  serialized_start=382,
+  serialized_end=603,
 )
 
 
@@ -272,8 +308,8 @@ _INTERFACE_MODULE = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=381,
-  serialized_end=415,
+  serialized_start=382,
+  serialized_end=416,
 )
 
 _INTERFACE = _descriptor.Descriptor(
@@ -315,8 +351,8 @@ _INTERFACE = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=510,
-  serialized_end=648,
+  serialized_start=606,
+  serialized_end=744,
 )
 
 
@@ -380,8 +416,8 @@ _NEWNODEMSG = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=651,
-  serialized_end=839,
+  serialized_start=747,
+  serialized_end=935,
 )
 
 
@@ -431,8 +467,8 @@ _NEWNODEACK = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=841,
-  serialized_end=930,
+  serialized_start=937,
+  serialized_end=1026,
 )
 
 
@@ -468,8 +504,8 @@ _NODEEXITMSG = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=932,
-  serialized_end=981,
+  serialized_start=1028,
+  serialized_end=1077,
 )
 
 
@@ -505,8 +541,8 @@ _HELLOMSG = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=983,
-  serialized_end=1024,
+  serialized_start=1079,
+  serialized_end=1120,
 )
 
 
@@ -563,8 +599,8 @@ _RULEDESC_EVENT = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=1387,
-  serialized_end=1485,
+  serialized_start=1483,
+  serialized_end=1581,
 )
 
 _RULEDESC_FILTER = _descriptor.Descriptor(
@@ -606,8 +642,8 @@ _RULEDESC_FILTER = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=1487,
-  serialized_end=1572,
+  serialized_start=1583,
+  serialized_end=1668,
 )
 
 _RULEDESC_MATCH = _descriptor.Descriptor(
@@ -642,8 +678,8 @@ _RULEDESC_MATCH = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=1574,
-  serialized_end=1615,
+  serialized_start=1670,
+  serialized_end=1711,
 )
 
 _RULEDESC_ACTION = _descriptor.Descriptor(
@@ -685,8 +721,8 @@ _RULEDESC_ACTION = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=1617,
-  serialized_end=1672,
+  serialized_start=1713,
+  serialized_end=1768,
 )
 
 _RULEDESC = _descriptor.Descriptor(
@@ -750,14 +786,16 @@ _RULEDESC = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=1027,
-  serialized_end=1716,
+  serialized_start=1123,
+  serialized_end=1812,
 )
 
 _CMDDESC.fields_by_name['serialization_type'].enum_type = _CMDDESC_SERIALIZATION
 _CMDDESC_SERIALIZATION.containing_type = _CMDDESC
 _MODULE_FUNCTION.containing_type = _MODULE
+_MODULE_GENERATOR.containing_type = _MODULE
 _MODULE.fields_by_name['functions'].message_type = _MODULE_FUNCTION
+_MODULE.fields_by_name['generators'].message_type = _MODULE_GENERATOR
 _INTERFACE_MODULE.containing_type = _INTERFACE
 _INTERFACE.fields_by_name['modules'].message_type = _INTERFACE_MODULE
 _NEWNODEMSG.fields_by_name['modules'].message_type = _MODULE
@@ -796,12 +834,20 @@ Module = _reflection.GeneratedProtocolMessageType('Module', (_message.Message,),
     # @@protoc_insertion_point(class_scope:wishful_controller.framework.Module.Function)
     ))
   ,
+
+  Generator = _reflection.GeneratedProtocolMessageType('Generator', (_message.Message,), dict(
+    DESCRIPTOR = _MODULE_GENERATOR,
+    __module__ = 'management_pb2'
+    # @@protoc_insertion_point(class_scope:wishful_controller.framework.Module.Generator)
+    ))
+  ,
   DESCRIPTOR = _MODULE,
   __module__ = 'management_pb2'
   # @@protoc_insertion_point(class_scope:wishful_controller.framework.Module)
   ))
 _sym_db.RegisterMessage(Module)
 _sym_db.RegisterMessage(Module.Function)
+_sym_db.RegisterMessage(Module.Generator)
 
 Interface = _reflection.GeneratedProtocolMessageType('Interface', (_message.Message,), dict(
 

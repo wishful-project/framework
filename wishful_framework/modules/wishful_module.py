@@ -134,9 +134,12 @@ class WishfulModule(object):
 
         #discover UPI function implementation and create capabilities list
         func_name = [method for method in dir(self) if callable(getattr(self, method)) and hasattr(getattr(self, method), '_upi_fname')]
-        self.callbacks = {list(getattr(self, method)._upi_fname)[0] : method for method in func_name}
-        self.capabilities = self.callbacks.keys()
-        
+        self.functions = {list(getattr(self, method)._upi_fname)[0] : method for method in func_name if not hasattr(getattr(self, method), '_generator')}
+        self.functions = self.functions.keys()
+        self.generators = {list(getattr(self, method)._upi_fname)[0] : method for method in func_name if hasattr(getattr(self, method), '_generator')}
+        self.generators = self.generators.keys()
+        self.capabilities = self.functions + self.generators
+
         #interface to be used in UPI functions, it is set before function call
         self.interface = None
 
@@ -148,10 +151,14 @@ class WishfulModule(object):
     def set_controller(self, controller):
         pass
 
+    def get_functions(self):
+        return self.functions
+
+    def get_generators(self):
+        return self.generators
 
     def get_capabilities(self):
         return self.capabilities
-
 
     def get_discovered_controller_address(self):
         #discover controller discovery function

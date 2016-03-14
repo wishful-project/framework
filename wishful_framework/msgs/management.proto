@@ -25,9 +25,13 @@ message Module {
     message Function {
         required string name = 1;
     }
+    message Generator {
+        required string name = 1;
+    }
     required uint32 id = 1;
     required string name = 2;
-    repeated Function functions = 4;
+    repeated Function functions = 3;
+    repeated Generator generators = 4;
 }
 
 message Interface {
