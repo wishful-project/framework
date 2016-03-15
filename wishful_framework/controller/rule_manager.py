@@ -56,7 +56,7 @@ class RuleManager(object):
                 break
 
         if myRule:
-            myRule.ctrl_cb(group=group, node=node, ruleId=rule_id, data=msg)
+            myRule.ctrl_cb(group, node, rule_id, msg)
 
 
     def add(self, event, pktMatch=None, selector=None, filters=[], match=None, action=None, permanence=Permanance.PERSISTENT, ctrl_callback=None):
@@ -148,7 +148,7 @@ class LocalRuleManager(object):
                 break
 
         if myRule:
-            myRule.ctrl_cb(ruleId=rule_id, data=msg)
+            myRule.ctrl_cb(rule_id, msg)
 
 
     def add(self, event, pktMatch=None, selector=None, filters=[], match=None, action=None, permanence=Permanance.PERSISTENT, ctrl_callback=None):
