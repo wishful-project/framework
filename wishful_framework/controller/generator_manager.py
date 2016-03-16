@@ -1,5 +1,6 @@
 import logging
 import Queue
+import gevent.queue
 from wishful_framework import TimeEvent, PktEvent, MovAvgFilter, PeakDetector, Match, Action, Permanance
 
 __author__ = "Piotr Gawlowicz"
@@ -20,7 +21,7 @@ class GeneratorDescriptor(object):
         self.match = match
 
         self._stop = False
-        self.sampleQueue = Queue.Queue()
+        self.sampleQueue = gevent.queue.Queue()
 
     def __iter__(self):
         return self
@@ -62,7 +63,6 @@ class GeneratorManager(object):
 
 
     def _receive(self, group, node, msg):
-        print "receive_sample"
         node_uuid = msg["node_uuid"]
         generator_id = msg["rule_id"]
         sample = msg["msg"]
