@@ -2,6 +2,7 @@ import inspect
 import wishful_upis
 import decorator
 from collections import namedtuple
+import collections
 
 
 __author__ = "Piotr Gawlowicz"
@@ -106,7 +107,10 @@ class UpiBuilder(object):
         sig = sig[0] + "(self, " + sig[1]
         code = "def {}: pass".format(sig)
         myGlobals = {}
-        exec code in myGlobals
+        #exec(code, myGlobals)
+        myLocals = {}
+        function = compile(code, 'My_Code', 'exec')
+        eval(function, myLocals, myGlobals)
         function = myGlobals[name]
 
         decorated_fun = _add_function(function)
@@ -114,7 +118,7 @@ class UpiBuilder(object):
 
 
     def find_upi_functions(self, module, upiType, modules):
-        for m in [submodule for submodule in module.__dict__.values() if inspect.ismodule(submodule)]:
+        for m in [submodule for submodule in list(module.__dict__.values()) if inspect.ismodule(submodule)]:
             self.find_upi_functions(m, upiType, modules)
             mName = m.__name__.split(".")
             mName = mName[len(mName)-1]
@@ -126,7 +130,7 @@ class UpiBuilder(object):
         self.find_upi_functions(wishful_upis, "radio", modules)
         for module in modules:
             for method in dir(module):
-                if callable(getattr(module, method)):
+                if isinstance(getattr(module, method), collections.Callable):
                     function = getattr(module, method)
                     function = self.perpare_function(method, function)
                     setattr(UpiRadio, method, function)
@@ -138,7 +142,7 @@ class UpiBuilder(object):
         self.find_upi_functions(wishful_upis, "net", modules)
         for module in modules:
             for method in dir(module):
-                if callable(getattr(module, method)):
+                if isinstance(getattr(module, method), collections.Callable):
                     function = getattr(module, method)
                     function = self.perpare_function(method, function)
                     setattr(UpiNet, method, function)
@@ -150,7 +154,7 @@ class UpiBuilder(object):
         self.find_upi_functions(wishful_upis, "mgmt", modules)
         for module in modules:
             for method in dir(module):
-                if callable(getattr(module, method)):
+                if isinstance(getattr(module, method), collections.Callable):
                     function = getattr(module, method)
                     function = self.perpare_function(method, function)
                     setattr(UpiMgmt, method, function)

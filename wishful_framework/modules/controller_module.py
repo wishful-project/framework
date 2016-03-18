@@ -1,9 +1,8 @@
 import logging
-import zmq
 import random
 import sys
 import time
-from wishful_module import *
+from .wishful_module import *
 
 __author__ = "Piotr Gawlowicz, Mikolaj Chwalisz"
 __copyright__ = "Copyright (c) 2015, Technische Universität Berlin"

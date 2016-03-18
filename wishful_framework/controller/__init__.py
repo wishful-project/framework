@@ -1,3 +1,3 @@
-import upis_builder
-import rule_manager
-import generator_manager
+from . import upis_builder
+from . import rule_manager
+from . import generator_manager

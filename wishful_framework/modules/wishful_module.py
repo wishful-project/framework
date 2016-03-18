@@ -1,10 +1,10 @@
 import logging
-import zmq
 import random
 import sys
 import time
 import threading
 import wishful_framework as msgs
+import collections
 
 __author__ = "Piotr Gawlowicz"
 __copyright__ = "Copyright (c) 2015, Technische Universität Berlin"
@@ -114,7 +114,7 @@ class bind_function(object):
 
 def build_module(module_class):
     original_methods = module_class.__dict__.copy()
-    for name, method in original_methods.iteritems():
+    for name, method in original_methods.items():
         if hasattr(method, '_upi_fname'):
             #add UPI alias for the function
             for falias in method._upi_fname - set(original_methods):
@@ -133,11 +133,11 @@ class WishfulModule(object):
         self.firstCallToModule = True
 
         #discover UPI function implementation and create capabilities list
-        func_name = [method for method in dir(self) if callable(getattr(self, method)) and hasattr(getattr(self, method), '_upi_fname')]
+        func_name = [method for method in dir(self) if isinstance(getattr(self, method), collections.Callable) and hasattr(getattr(self, method), '_upi_fname')]
         self.functions = {list(getattr(self, method)._upi_fname)[0] : method for method in func_name if not hasattr(getattr(self, method), '_generator')}
-        self.functions = self.functions.keys()
+        self.functions = list(self.functions.keys())
         self.generators = {list(getattr(self, method)._upi_fname)[0] : method for method in func_name if hasattr(getattr(self, method), '_generator')}
-        self.generators = self.generators.keys()
+        self.generators = list(self.generators.keys())
         self.capabilities = self.functions + self.generators
 
         #interface to be used in UPI functions, it is set before function call
@@ -160,9 +160,10 @@ class WishfulModule(object):
     def get_capabilities(self):
         return self.capabilities
 
+
     def get_discovered_controller_address(self):
         #discover controller discovery function
-        funcs = [method for method in dir(self) if callable(getattr(self, method)) and hasattr(getattr(self, method), '_discover_controller')]
+        funcs = [method for method in dir(self) if isinstance(getattr(self, method), collections.Callable) and hasattr(getattr(self, method), '_discover_controller')]
         fname = funcs[0]
         func = getattr(self, fname)
         if func:
@@ -174,7 +175,7 @@ class WishfulModule(object):
     def execute_function(self, func):
         create_new_thread = hasattr(func, '_create_new_thread')
         if create_new_thread:
-            self.threads = threading.Thread(target=func)
+            self.threads = threading.Thread(target=func, name="upi_func_execution_{}".format(func.__name__))
             self.threads.setDaemon(True)
             self.threads.start()
         else:
@@ -183,7 +184,7 @@ class WishfulModule(object):
 
     def start(self):
         #discover all functions that have to be executed on start
-        funcs = [method for method in dir(self) if callable(getattr(self, method)) and hasattr(getattr(self, method), '_onStart')]
+        funcs = [method for method in dir(self) if isinstance(getattr(self, method), collections.Callable) and hasattr(getattr(self, method), '_onStart')]
         for fname in funcs:
             f = getattr(self, fname)
             self.execute_function(f)
@@ -191,7 +192,7 @@ class WishfulModule(object):
 
     def exit(self):
         #discover all functions that have to be executed on exit
-        funcs = [method for method in dir(self) if callable(getattr(self, method)) and hasattr(getattr(self, method), '_onExit')]
+        funcs = [method for method in dir(self) if isinstance(getattr(self, method), collections.Callable) and hasattr(getattr(self, method), '_onExit')]
         for fname in funcs:
             f = getattr(self, fname)
             self.execute_function(f)
@@ -199,7 +200,7 @@ class WishfulModule(object):
 
     def connected(self):
         #discover all functions that have to be executed on connected
-        funcs = [method for method in dir(self) if callable(getattr(self, method)) and hasattr(getattr(self, method), '_onConnected')]
+        funcs = [method for method in dir(self) if isinstance(getattr(self, method), collections.Callable) and hasattr(getattr(self, method), '_onConnected')]
         for fname in funcs:
             f = getattr(self, fname)
             self.execute_function(f)
@@ -207,7 +208,7 @@ class WishfulModule(object):
 
     def disconnected(self):
         #discover all functions that have to be executed on disconnected
-        funcs = [method for method in dir(self) if callable(getattr(self, method)) and hasattr(getattr(self, method), '_onDisconnected')]
+        funcs = [method for method in dir(self) if isinstance(getattr(self, method), collections.Callable) and hasattr(getattr(self, method), '_onDisconnected')]
         for fname in funcs:
             f = getattr(self, fname)
             self.execute_function(f)
@@ -215,7 +216,7 @@ class WishfulModule(object):
 
     def first_call_to_module(self):
         #discover all functions that have to be executed before first UPI function call to module
-        funcs = [method for method in dir(self) if callable(getattr(self, method)) and hasattr(getattr(self, method), '_onFirstCallToModule')]
+        funcs = [method for method in dir(self) if isinstance(getattr(self, method), collections.Callable) and hasattr(getattr(self, method), '_onFirstCallToModule')]
         for fname in funcs:
             f = getattr(self, fname)
             self.execute_function(f)

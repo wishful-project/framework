@@ -1,5 +1,5 @@
 import logging
-import Queue
+import queue
 import gevent.queue
 from wishful_framework import TimeEvent, PktEvent, MovAvgFilter, PeakDetector, Match, Action, Permanance
 
@@ -26,11 +26,7 @@ class GeneratorDescriptor(object):
     def __iter__(self):
         return self
 
-    # Python 3 compatibility
     def __next__(self):
-        return self.next()
-
-    def next(self):
         if not self._stop:
             try:
                 return self.sampleQueue.get()
@@ -135,16 +131,12 @@ class LocalGeneratorDescriptor(object):
         self.match = match
 
         self._stop = False
-        self.sampleQueue = Queue.Queue()
+        self.sampleQueue = queue.Queue()
 
     def __iter__(self):
         return self
 
-    # Python 3 compatibility
     def __next__(self):
-        return self.next()
-
-    def next(self):
         if not self._stop:
             try:
                 return self.sampleQueue.get()

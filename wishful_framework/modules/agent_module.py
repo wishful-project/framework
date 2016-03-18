@@ -1,10 +1,9 @@
 import logging
-import zmq
 import random
 import sys
 import time
 import threading
-from wishful_module import *
+from .wishful_module import *
 from wishful_framework import msgs
 
 __author__ = "Piotr Gawlowicz, Mikolaj Chwalisz"
