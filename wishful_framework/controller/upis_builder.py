@@ -96,6 +96,11 @@ class UpiMgmt(UpiBase):
         self._ctrl = ctrl
         self._msg_type = "mgmt"
 
+class UpiContext(UpiBase):
+    def __init__(self, ctrl):
+        self._ctrl = ctrl
+        self._msg_type = "context"
+
 
 class UpiBuilder(object):
     def __init__(self, ctrl):
@@ -125,6 +130,7 @@ class UpiBuilder(object):
             if mName == upiType:
                 modules.append(m)
 
+
     def create_radio(self):
         modules = []
         self.find_upi_functions(wishful_upis, "radio", modules)
@@ -136,6 +142,7 @@ class UpiBuilder(object):
                     setattr(UpiRadio, method, function)
         radio = UpiRadio(self._ctrl)
         return radio
+
 
     def create_net(self):
         modules = []
@@ -149,6 +156,7 @@ class UpiBuilder(object):
         net = UpiNet(self._ctrl)
         return net
 
+
     def create_mgmt(self):
         modules = []
         self.find_upi_functions(wishful_upis, "mgmt", modules)
@@ -160,3 +168,16 @@ class UpiBuilder(object):
                     setattr(UpiMgmt, method, function)
         mgmt = UpiMgmt(self._ctrl)
         return mgmt
+
+
+    def create_context(self):
+        modules = []
+        self.find_upi_functions(wishful_upis, "context", modules)
+        for module in modules:
+            for method in dir(module):
+                if isinstance(getattr(module, method), collections.Callable):
+                    function = getattr(module, method)
+                    function = self.perpare_function(method, function)
+                    setattr(UpiContext, method, function)
+        context = UpiContext(self._ctrl)
+        return context
