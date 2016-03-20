@@ -185,7 +185,8 @@ class LocalGeneratorManager(object):
         self.log.debug("Adding new generator to node".format())
 
         generator = {"event":event, "pktMatch":pktMatch, "selector":selector, "filters":filters, 
-                "match":match, "action":None, "permanence":Permanance.PERSISTENT, "notify_ctrl":True, "generator":True}
+                "match":match, "action":None, "permanence":Permanance.PERSISTENT, "notify_ctrl":True, "generator":True,
+                "LocalControllerId":self.controller.id}
 
         generator_id = self.controller.blocking(True).mgmt.add_rule(generator)
         descriptor = LocalGeneratorDescriptor(self, generator_id, event, filters, match)

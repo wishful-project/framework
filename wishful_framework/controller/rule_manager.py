@@ -159,7 +159,8 @@ class LocalRuleManager(object):
             notify_ctrl = True
 
         rule = {"event":event, "pktMatch":pktMatch, "selector":selector, "filters":filters, 
-                "match":match, "action":action, "permanence":permanence, "notify_ctrl":notify_ctrl}
+                "match":match, "action":action, "permanence":permanence, "notify_ctrl":notify_ctrl,
+                "LocalControllerId":self.controller.id}
 
         rule_id = self.controller.blocking(True).mgmt.add_rule(rule)
         descriptor = LocalRuleDescriptor(self, rule_id, event, filters, match, action, permanence, ctrl_callback)
