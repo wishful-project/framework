@@ -15,6 +15,8 @@ class ControllerModule(WishfulModule):
         super(ControllerModule, self).__init__()
         self.controller = controller
 
+    def set_controller(self, controller):
+        self.controller = controller
 
     def send_to_module(self, msgContainer):
         self.log.debug("Module {} received cmd".format(self.__class__.__name__))
