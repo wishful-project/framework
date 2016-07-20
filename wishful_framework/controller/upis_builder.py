@@ -2,6 +2,7 @@ import inspect
 import wishful_upis
 import decorator
 from collections import namedtuple
+from types import FunctionType
 import collections
 
 
@@ -107,16 +108,16 @@ class UpiBuilder(object):
         self._ctrl = ctrl
 
     def perpare_function(self, name, function):
-        sig = get_method_sig(function)
-        sig = sig.split("(", 1)
-        sig = sig[0] + "(self, " + sig[1]
-        code = "def {}: pass".format(sig)
-        myGlobals = {}
-        #exec(code, myGlobals)
-        myLocals = {}
-        function = compile(code, 'My_Code', 'exec')
-        eval(function, myLocals, myGlobals)
-        function = myGlobals[name]
+        #sig = get_method_sig(function)
+        #sig = sig.split("(", 1)
+        #sig = sig[0] + "(self, " + sig[1]
+        #code = "def {}: pass".format(sig)
+        #myGlobals = {}
+        # exec(code, myGlobals)
+        #myLocals = {}
+        #function = compile(code, 'My_Code', 'exec')
+        #eval(function, myLocals, myGlobals)
+        #function = myGlobals[name]
 
         decorated_fun = _add_function(function)
         return decorated_fun
@@ -136,7 +137,7 @@ class UpiBuilder(object):
         self.find_upi_functions(wishful_upis, "radio", modules)
         for module in modules:
             for method in dir(module):
-                if isinstance(getattr(module, method), collections.Callable):
+                if isinstance(getattr(module, method), FunctionType):
                     function = getattr(module, method)
                     function = self.perpare_function(method, function)
                     setattr(UpiRadio, method, function)
@@ -149,7 +150,7 @@ class UpiBuilder(object):
         self.find_upi_functions(wishful_upis, "net", modules)
         for module in modules:
             for method in dir(module):
-                if isinstance(getattr(module, method), collections.Callable):
+                if isinstance(getattr(module, method), FunctionType):
                     function = getattr(module, method)
                     function = self.perpare_function(method, function)
                     setattr(UpiNet, method, function)
@@ -162,7 +163,7 @@ class UpiBuilder(object):
         self.find_upi_functions(wishful_upis, "mgmt", modules)
         for module in modules:
             for method in dir(module):
-                if isinstance(getattr(module, method), collections.Callable):
+                if isinstance(getattr(module, method), FunctionType):
                     function = getattr(module, method)
                     function = self.perpare_function(method, function)
                     setattr(UpiMgmt, method, function)
@@ -175,7 +176,7 @@ class UpiBuilder(object):
         self.find_upi_functions(wishful_upis, "context", modules)
         for module in modules:
             for method in dir(module):
-                if isinstance(getattr(module, method), collections.Callable):
+                if isinstance(getattr(module, method), FunctionType):
                     function = getattr(module, method)
                     function = self.perpare_function(method, function)
                     setattr(UpiContext, method, function)
