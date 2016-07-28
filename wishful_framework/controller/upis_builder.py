@@ -38,6 +38,11 @@ def iface_func(self, iface):
     self._ctrl.iface(iface)
     return self
 
+def copy_functions_from_subclasses_to_base_class(myclass):
+    for subclass in myclass.__subclasses__():
+        for f in functions_in_class(subclass):
+            setattr(myclass, f.__name__, f)
+
 
 class UpiBuilder(object):
     def __init__(self, ctrl):
@@ -49,17 +54,7 @@ class UpiBuilder(object):
         upiClass.iface = iface_func
 
         # flatten UPIs, i.e. wifiRadioUpis -> radioUpis
-        # TODO: remove it in some point in future, when people will agree on new sytnax
-        classList = classes_in_module(sys.modules[upiClass.__module__])
-        print("classlist ", classList)
-        for c in classList:
-            if c.__name__ == upiClass.__name__:
-                continue
-            funcs = functions_in_class(c)
-            print("class name ", c.__name__)
-            for f in funcs:
-                print("function: ",f.__name__)
-                setattr(upiClass, f.__name__, f)
+        copy_functions_from_subclasses_to_base_class(upiClass)
 
         # decorate all UPI functions in UPI class to exec_command
         upiList = functions_in_class(upiClass)
