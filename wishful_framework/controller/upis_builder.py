@@ -13,7 +13,7 @@ __email__ = "gawlowicz@tkn.tu-berlin.de"
 def _add_function(fn, *args, **kwargs):
     def wrapped(self, *args, **kwargs):
         # send function to controller
-        return self._ctrl.exec_cmd(upi_type=self._msg_type,
+        return self._ctrl.cmd_wrapper(upi_type=self._msg_type,
                                    fname=fn.__name__, args=args, kwargs=kwargs)
     return wrapped(*args, **kwargs)
 
