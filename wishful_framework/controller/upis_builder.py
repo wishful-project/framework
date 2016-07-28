@@ -63,6 +63,10 @@ def get_method_sig(method):
         else:
             args.append(arg)
         arg_index += 1
+    if argspec.varargs:
+        args.append("*args")
+    if argspec.keywords:
+        args.append("**kwargs")
     return "%s(%s)" % (method.__name__, ", ".join(args))
 
 @decorator.decorator
