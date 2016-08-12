@@ -13,8 +13,9 @@ __email__ = "gawlowicz@tkn.tu-berlin.de"
 def _add_function(fn, *args, **kwargs):
     def wrapped(self, *args, **kwargs):
         # send function to controller
-        return self._ctrl.cmd_wrapper(upi_type=self._msg_type,
-                                   fname=fn.__name__, args=args, kwargs=kwargs)
+        return self._obj.cmd_wrapper(upi_type=self._msg_type,
+                                   fname=fn.__module__ + "." + fn.__name__, args=args, kwargs=kwargs)
+
     return wrapped(*args, **kwargs)
 
 
@@ -35,7 +36,7 @@ def classes_in_module(module):
     ]
 
 def iface_func(self, iface):
-    self._ctrl.iface(iface)
+    self._obj.iface(iface)
     return self
 
 def copy_functions_from_subclasses_to_base_class(myclass):
@@ -45,11 +46,11 @@ def copy_functions_from_subclasses_to_base_class(myclass):
 
 
 class UpiBuilder(object):
-    def __init__(self, ctrl):
-        self._ctrl = ctrl
+    def __init__(self, obj):
+        self._obj = obj
 
     def create_upi(self, upiClass, upiType):
-        setattr(upiClass, "_ctrl", None)
+        setattr(upiClass, "_obj", None)
         setattr(upiClass, "_msg_type", None)
         upiClass.iface = iface_func
 
@@ -63,6 +64,6 @@ class UpiBuilder(object):
             setattr(upiClass, upi.__name__, upi)
 
         upiObj = upiClass()
-        upiObj._ctrl = self._ctrl
+        upiObj._obj = self._obj
         upiObj._msg_type = upiType
         return upiObj
