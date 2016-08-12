@@ -169,6 +169,8 @@ class WishfulModule(object):
         self.name = self.__class__.__name__
         self.agent = None
         self.moduleManager = None
+
+        # TODO: move to AgentModule (DeviceModule)
         self.device = None  # used for filtering of commands
         self.deviceId = None  # used for filtering of commands
         self.attributes = []
@@ -177,58 +179,17 @@ class WishfulModule(object):
         self.services = []
         self.firstCallToModule = False
 
-    def set_device(self, dev):
-        self.device = dev
+        # TODO: move to ControllerModule (ControllerApp)
+        self.controller = None
 
-    def get_device(self):
-        return self.device
+    def set_agent(self, agent):
+        self.agent = agent
 
     def set_module_manager(self, mm):
         self.moduleManager = mm
 
     def send_event(self, event):
         self.moduleManager.send_event(event)
-
-    def set_agent(self, agent):
-        self.agent = agent
-
-    def set_controller(self, controller):
-        self.controller = controller
-
-    def get_attributes(self):
-        return self.attributes
-
-    def get_functions(self):
-        return self.functions
-
-    def get_events(self):
-        return self.events
-
-    def get_services(self):
-        return self.services
-
-    def execute_function(self, func):
-        create_new_thread = hasattr(func, '_create_new_thread')
-        if create_new_thread:
-            self.threads = threading.Thread(target=func,
-                                            name="upi_func_execution_{}"
-                                            .format(func.__name__))
-            self.threads.setDaemon(True)
-            self.threads.start()
-        else:
-            func()
-
-    def start_event_thread(self,):
-        pass
-
-    def stop_event_thread(self,):
-        pass
-
-    def start_service_thread(self,):
-        pass
-
-    def stop_service_thread(self,):
-        pass
 
     def start(self):
         # discover all functions that have to be executed on start
@@ -266,6 +227,48 @@ class WishfulModule(object):
             f = getattr(self, fname)
             self.execute_function(f)
 
+    # TODO: move to AgentModule (DeviceModule)
+    def set_device(self, dev):
+        self.device = dev
+
+    def get_device(self):
+        return self.device
+
+    def get_attributes(self):
+        return self.attributes
+
+    def get_functions(self):
+        return self.functions
+
+    def get_events(self):
+        return self.events
+
+    def get_services(self):
+        return self.services
+
+    def execute_function(self, func):
+        create_new_thread = hasattr(func, '_create_new_thread')
+        if create_new_thread:
+            self.threads = threading.Thread(target=func,
+                                            name="upi_func_execution_{}"
+                                            .format(func.__name__))
+            self.threads.setDaemon(True)
+            self.threads.start()
+        else:
+            func()
+
+    def start_event_thread(self,):
+        pass
+
+    def stop_event_thread(self,):
+        pass
+
+    def start_service_thread(self,):
+        pass
+
+    def stop_service_thread(self,):
+        pass
+
     def first_call_to_module(self):
         # discover all functions that have to be executed before first UPI
         # function call to module
@@ -276,11 +279,14 @@ class WishfulModule(object):
             f = getattr(self, fname)
             self.execute_function(f)
 
+    # TODO: move to ControllerModule (ControllerApp)
+    def set_controller(self, controller):
+        self.controller = controller
+
 
 class ControllerModule(WishfulModule):
     def __init__(self, controller):
         super(ControllerModule, self).__init__()
-        self.controller = controller
 
 
 class AgentModule(WishfulModule):
