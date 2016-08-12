@@ -232,7 +232,7 @@ class WishfulModule(object):
         self.agent = agent
 
     def set_controller(self, controller):
-        pass
+        self.controller = controller
 
     def get_functions(self):
         return self.functions
@@ -311,3 +311,14 @@ class WishfulModule(object):
         for fname in funcs:
             f = getattr(self, fname)
             self.execute_function(f)
+
+
+class ControllerModule(WishfulModule):
+    def __init__(self, controller):
+        super(ControllerModule, self).__init__()
+        self.controller = controller
+
+
+class AgentModule(WishfulModule):
+    def __init__(self):
+        super(AgentModule, self).__init__()
