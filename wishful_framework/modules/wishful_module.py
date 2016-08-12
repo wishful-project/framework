@@ -40,15 +40,6 @@ class run_in_thread(object):
         return f
 
 
-class generator(object):
-    def __init__(self):
-        self.generator = True
-
-    def __call__(self, f):
-        f._generator = self.generator
-        return f
-
-
 class on_start(object):
     def __init__(self, ):
         self.onStart = True
@@ -112,16 +103,6 @@ class after_call(object):
         return f
 
 
-class bind_function(object):
-    def __init__(self, upiFunc):
-        fname = upiFunc.__name__
-        self.upi_fname = set([fname])
-
-    def __call__(self, f):
-        f._upi_fname = self.upi_fname
-        return f
-
-
 def on_function(upiFunc):
     def _set_ev_cls_dec(handler):
         if '_upiFunc_' not in dir(handler):
@@ -130,45 +111,43 @@ def on_function(upiFunc):
         return handler
     return _set_ev_cls_dec
 
-
-class bind_event_start(object):
-    def __init__(self, upiEvent):
-        fname = upiEvent.__name__
-        self.upi_name = set([fname])
-
-    def __call__(self, f):
-        f._upi_name = self.upi_name
-        return f
+bind_function = on_function
 
 
-class bind_event_stop(object):
-    def __init__(self, upiEvent):
-        fname = upiEvent.__name__
-        self.upi_name = set([fname])
-
-    def __call__(self, f):
-        f._upi_name = self.upi_name
-        return f
-
-
-class bind_service_start(object):
-    def __init__(self, upiService):
-        fname = upiService.__name__
-        self.upi_name = set([fname])
-
-    def __call__(self, f):
-        f._upi_name = self.upi_name
-        return f
+def bind_event_start(upiFunc):
+    def _set_ev_cls_dec(handler):
+        if '_event_start_' not in dir(handler):
+            handler._upiFunc_ = None
+        handler._upiFunc_ = upiFunc.__module__ + "." + upiFunc.__name__
+        return handler
+    return _set_ev_cls_dec
 
 
-class bind_service_stop(object):
-    def __init__(self, upiService):
-        fname = upiService.__name__
-        self.upi_name = set([fname])
+def bind_event_stop(upiFunc):
+    def _set_ev_cls_dec(handler):
+        if '_event_stop_' not in dir(handler):
+            handler._upiFunc_ = None
+        handler._upiFunc_ = upiFunc.__module__ + "." + upiFunc.__name__
+        return handler
+    return _set_ev_cls_dec
 
-    def __call__(self, f):
-        f._upi_name = self.upi_name
-        return f
+
+def bind_service_start(upiFunc):
+    def _set_ev_cls_dec(handler):
+        if '_service_start_' not in dir(handler):
+            handler._upiFunc_ = None
+        handler._upiFunc_ = upiFunc.__module__ + "." + upiFunc.__name__
+        return handler
+    return _set_ev_cls_dec
+
+
+def bind_service_stop(upiFunc):
+    def _set_ev_cls_dec(handler):
+        if '_service_stop_' not in dir(handler):
+            handler._upiFunc_ = None
+        handler._upiFunc_ = upiFunc.__module__ + "." + upiFunc.__name__
+        return handler
+    return _set_ev_cls_dec
 
 
 def build_module(module_class):
@@ -186,35 +165,17 @@ class WishfulModule(object):
         self.log = logging.getLogger("{module}.{name}".format(
             module=self.__class__.__module__, name=self.__class__.__name__))
 
-        self.agent = None
-        self._moduleManager = None
         self.id = None
         self.name = self.__class__.__name__
-
-        self.firstCallToModule = True
-
-        # discover UPI function implementation and create capabilities list
-        func_name = [method for method in dir(self) if isinstance(getattr(
-            self, method), collections.Callable) and hasattr(
-            getattr(self, method), '_upi_fname')]
-        self.functions = {list(getattr(self, method)._upi_fname)[0]:
-                          method for method in func_name if not hasattr(
-                          getattr(self, method), '_generator')}
-        self.functions = list(self.functions.keys())
-        self.generators = {list(getattr(self, method)._upi_fname)[0]:
-                           method for method in func_name if hasattr(
-                           getattr(self, method), '_generator')}
-        self.generators = list(self.generators.keys())
-
+        self.agent = None
+        self.moduleManager = None
+        self.device = None  # used for filtering of commands
+        self.deviceId = None  # used for filtering of commands
+        self.attributes = []
+        self.functions = []
         self.events = []
         self.services = []
-
-        self.capabilities = self.functions + self.generators
-
-        # interface to be used in UPI functions, it is set before function call
-        self.interface = None
-        # used for filtering of commands
-        self.device = None
+        self.firstCallToModule = False
 
     def set_device(self, dev):
         self.device = dev
@@ -223,10 +184,10 @@ class WishfulModule(object):
         return self.device
 
     def set_module_manager(self, mm):
-        self._moduleManager = mm
+        self.moduleManager = mm
 
     def send_event(self, event):
-        self._moduleManager.send_event(event)
+        self.moduleManager.send_event(event)
 
     def set_agent(self, agent):
         self.agent = agent
@@ -234,14 +195,17 @@ class WishfulModule(object):
     def set_controller(self, controller):
         self.controller = controller
 
+    def get_attributes(self):
+        return self.attributes
+
     def get_functions(self):
         return self.functions
 
-    def get_generators(self):
-        return self.generators
+    def get_events(self):
+        return self.events
 
-    def get_capabilities(self):
-        return self.capabilities
+    def get_services(self):
+        return self.services
 
     def execute_function(self, func):
         create_new_thread = hasattr(func, '_create_new_thread')
