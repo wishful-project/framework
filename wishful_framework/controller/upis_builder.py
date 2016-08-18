@@ -53,6 +53,7 @@ class UpiBuilder(object):
         setattr(upiClass, "_obj", None)
         setattr(upiClass, "_msg_type", None)
         upiClass.iface = iface_func
+        upiClass.device = iface_func
 
         # flatten UPIs, i.e. wifiRadioUpis -> radioUpis
         copy_functions_from_subclasses_to_base_class(upiClass)

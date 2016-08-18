@@ -1,22 +1,13 @@
+import uuid
 import logging
-import threading
-import collections
 import inspect
+from functools import partial
+import wishful_upis as upis
 
 __author__ = "Piotr Gawlowicz"
 __copyright__ = "Copyright (c) 2015, Technische Universität Berlin"
 __version__ = "0.1.0"
 __email__ = "gawlowicz@tkn.tu-berlin.de"
-
-
-def on_event(ev_cls, dispatchers=None):
-    def _set_ev_cls_dec(handler):
-        if 'callers' not in dir(handler):
-            handler.callers = {}
-        for e in _listify(ev_cls):
-            handler.callers[e] = e.__module__
-        return handler
-    return _set_ev_cls_dec
 
 
 def _listify(may_list):
@@ -31,76 +22,51 @@ def _is_method(f):
     return inspect.isfunction(f) or inspect.ismethod(f)
 
 
-class run_in_thread(object):
-    def __init__(self, ):
-        self.create_new_thread = True
+def on_event(ev_cls, dispatchers=None):
+    def _set_ev_cls_dec(handler):
+        if 'callers' not in dir(handler):
+            handler.callers = {}
+        for e in _listify(ev_cls):
+            handler.callers[e] = e.__module__
+        return handler
+    return _set_ev_cls_dec
 
-    def __call__(self, f):
-        f._create_new_thread = self.create_new_thread
-        return f
-
-
-class on_start(object):
-    def __init__(self, ):
-        self.onStart = True
-
-    def __call__(self, f):
-        f._onStart = self.onStart
-        return f
+on_start = partial(on_event, upis.mgmt.AgentStartEvent)
+on_exit = partial(on_event, upis.mgmt.AgentExitEvent)
+on_connected = partial(on_event, upis.mgmt.ControllerConnectedEvent)
+on_disconnected = partial(on_event, upis.mgmt.ControllerDisconnectedEvent)
 
 
-class on_exit(object):
-    def __init__(self):
-        self.onExit = True
-
-    def __call__(self, f):
-        f._onExit = self.onExit
-        return f
-
-
-class on_connected(object):
-    def __init__(self):
-        self.onConnected = True
-
-    def __call__(self, f):
-        f._onConnected = self.onConnected
-        return f
+def run_in_thread():
+    def _set_ev_cls_dec(handler):
+        if '_run_in_thread_' not in dir(handler):
+            handler._run_in_thread_ = True
+        return handler
+    return _set_ev_cls_dec
 
 
-class on_disconnected(object):
-    def __init__(self):
-        self.onDisconnected = True
-
-    def __call__(self, f):
-        f._onDisconnected = self.onDisconnected
-        return f
-
-
-class on_first_call_to_module(object):
-    def __init__(self):
-        self.onFirstCallToModule = True
-
-    def __call__(self, f):
-        f._onFirstCallToModule = self.onFirstCallToModule
-        return f
+def on_first_call_to_module():
+    def _set_ev_cls_dec(handler):
+        if '_first_call_' not in dir(handler):
+            handler._first_call_ = {}
+        return handler
+    return _set_ev_cls_dec
 
 
-class before_call(object):
-    def __init__(self, function):
-        self.beforeCall = function.__name__
+def before_call(func):
+    def _set_ev_cls_dec(handler):
+        if '_before_call_' not in dir(handler):
+            handler._before_call_ = func
+        return handler
+    return _set_ev_cls_dec
 
-    def __call__(self, f):
-        f._beforeCall = self.beforeCall
-        return f
 
-
-class after_call(object):
-    def __init__(self, function):
-        self.afterCall = function.__name__
-
-    def __call__(self, f):
-        f._afterCall = self.afterCall
-        return f
+def after_call(func):
+    def _set_ev_cls_dec(handler):
+        if '_after_call_' not in dir(handler):
+            handler._after_call_ = func
+        return handler
+    return _set_ev_cls_dec
 
 
 def on_function(upiFunc):
@@ -114,38 +80,38 @@ def on_function(upiFunc):
 bind_function = on_function
 
 
-def bind_event_start(upiFunc):
+def event_enable(event):
     def _set_ev_cls_dec(handler):
-        if '_event_start_' not in dir(handler):
-            handler._upiFunc_ = None
-        handler._upiFunc_ = upiFunc.__module__ + "." + upiFunc.__name__
+        if '_event_enable_' not in dir(handler):
+            handler._event_enable_ = None
+        handler._event_enable_ = event.__module__ + "." + event.__name__
         return handler
     return _set_ev_cls_dec
 
 
-def bind_event_stop(upiFunc):
+def event_disable(event):
     def _set_ev_cls_dec(handler):
-        if '_event_stop_' not in dir(handler):
-            handler._upiFunc_ = None
-        handler._upiFunc_ = upiFunc.__module__ + "." + upiFunc.__name__
+        if '_event_disable_' not in dir(handler):
+            handler._event_disable_ = None
+        handler._event_disable_ = event.__module__ + "." + event.__name__
         return handler
     return _set_ev_cls_dec
 
 
-def bind_service_start(upiFunc):
+def service_start(service):
     def _set_ev_cls_dec(handler):
         if '_service_start_' not in dir(handler):
-            handler._upiFunc_ = None
-        handler._upiFunc_ = upiFunc.__module__ + "." + upiFunc.__name__
+            handler._service_start_ = None
+        handler._service_start_ = service.__module__ + "." + service.__name__
         return handler
     return _set_ev_cls_dec
 
 
-def bind_service_stop(upiFunc):
+def service_stop(service):
     def _set_ev_cls_dec(handler):
         if '_service_stop_' not in dir(handler):
-            handler._upiFunc_ = None
-        handler._upiFunc_ = upiFunc.__module__ + "." + upiFunc.__name__
+            handler._service_stop_ = None
+        handler._service_stop_ = service.__module__ + "." + service.__name__
         return handler
     return _set_ev_cls_dec
 
@@ -166,6 +132,7 @@ class WishfulModule(object):
             module=self.__class__.__module__, name=self.__class__.__name__))
 
         self.id = None
+        self.uuid = str(uuid.uuid4())
         self.name = self.__class__.__name__
         self.agent = None
         self.moduleManager = None
@@ -189,43 +156,9 @@ class WishfulModule(object):
         self.moduleManager = mm
 
     def send_event(self, event):
+        # stamp event with device
+        event.device = self
         self.moduleManager.send_event(event)
-
-    def start(self):
-        # discover all functions that have to be executed on start
-        funcs = [method for method in dir(self) if isinstance(getattr(
-            self, method), collections.Callable) and hasattr(
-            getattr(self, method), '_onStart')]
-        for fname in funcs:
-            f = getattr(self, fname)
-            self.execute_function(f)
-
-    def exit(self):
-        # discover all functions that have to be executed on exit
-        funcs = [method for method in dir(self) if isinstance(getattr(
-            self, method), collections.Callable) and hasattr(
-            getattr(self, method), '_onExit')]
-        for fname in funcs:
-            f = getattr(self, fname)
-            self.execute_function(f)
-
-    def connected(self):
-        # discover all functions that have to be executed on connected
-        funcs = [method for method in dir(self) if isinstance(getattr(
-            self, method), collections.Callable) and hasattr(
-            getattr(self, method), '_onConnected')]
-        for fname in funcs:
-            f = getattr(self, fname)
-            self.execute_function(f)
-
-    def disconnected(self):
-        # discover all functions that have to be executed on disconnected
-        funcs = [method for method in dir(self) if isinstance(getattr(
-            self, method), collections.Callable) and hasattr(
-            getattr(self, method), '_onDisconnected')]
-        for fname in funcs:
-            f = getattr(self, fname)
-            self.execute_function(f)
 
     # TODO: move to AgentModule (DeviceModule)
     def set_device(self, dev):
@@ -246,47 +179,17 @@ class WishfulModule(object):
     def get_services(self):
         return self.services
 
-    def execute_function(self, func):
-        create_new_thread = hasattr(func, '_create_new_thread')
-        if create_new_thread:
-            self.threads = threading.Thread(target=func,
-                                            name="upi_func_execution_{}"
-                                            .format(func.__name__))
-            self.threads.setDaemon(True)
-            self.threads.start()
-        else:
-            func()
-
-    def start_event_thread(self,):
-        pass
-
-    def stop_event_thread(self,):
-        pass
-
-    def start_service_thread(self,):
-        pass
-
-    def stop_service_thread(self,):
-        pass
-
-    def first_call_to_module(self):
-        # discover all functions that have to be executed before first UPI
-        # function call to module
-        funcs = [method for method in dir(self) if isinstance(getattr(
-            self, method), collections.Callable) and hasattr(
-            getattr(self, method), '_onFirstCallToModule')]
-        for fname in funcs:
-            f = getattr(self, fname)
-            self.execute_function(f)
-
     # TODO: move to ControllerModule (ControllerApp)
     def set_controller(self, controller):
         self.controller = controller
 
 
 class ControllerModule(WishfulModule):
-    def __init__(self, controller):
+    def __init__(self):
         super(ControllerModule, self).__init__()
+
+    def add_rule(self,):
+        pass
 
 
 class AgentModule(WishfulModule):
