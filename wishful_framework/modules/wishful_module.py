@@ -1,6 +1,8 @@
 import uuid
 import logging
 import inspect
+from queue import Queue
+from threading import Thread
 from functools import partial
 import wishful_upis as upis
 
@@ -126,11 +128,39 @@ def build_module(module_class):
     return module_class
 
 
+class ModuleWorker(Thread):
+    def __init__(self, module):
+        super().__init__()
+        self.log = logging.getLogger("{module}.{name}".format(
+            module=self.__class__.__module__, name=self.__class__.__name__))
+        self.module = module
+        self.taskQueue = Queue()
+        self.daemon = True
+        self.running = True
+        self.start()
+
+    def run(self):
+        while self.running:
+            (func, args, kargs) = self.taskQueue.get()
+            try:
+                func(*args, **kargs)
+            except Exception as e:
+                print(e)
+            self.taskQueue.task_done()
+
+    def stop(self):
+        self.running = False
+
+    def add_task(self, func, args, kargs):
+        self.taskQueue.put((func, args, kargs))
+
+
 class WishfulModule(object):
     def __init__(self):
         self.log = logging.getLogger("{module}.{name}".format(
             module=self.__class__.__module__, name=self.__class__.__name__))
 
+        self.worker = ModuleWorker(self)
         self.id = None
         self.uuid = str(uuid.uuid4())
         self.name = self.__class__.__name__
@@ -157,7 +187,7 @@ class WishfulModule(object):
 
     def send_event(self, event):
         # stamp event with device
-        event.device = self
+        event.device = self.device
         self.moduleManager.send_event(event)
 
     # TODO: move to AgentModule (DeviceModule)
