@@ -37,6 +37,7 @@ on_start = partial(on_event, upis.mgmt.AgentStartEvent)
 on_exit = partial(on_event, upis.mgmt.AgentExitEvent)
 on_connected = partial(on_event, upis.mgmt.ControllerConnectedEvent)
 on_disconnected = partial(on_event, upis.mgmt.ControllerDisconnectedEvent)
+on_lost = partial(on_event, upis.mgmt.ControllerLostEvent)
 
 
 def run_in_thread():
