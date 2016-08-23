@@ -167,6 +167,9 @@ class WishfulModule(object):
         self.agent = None
         self.moduleManager = None
 
+        self.callIdGen = 0
+        self.callbacks = {}
+
         # TODO: move to AgentModule (DeviceModule)
         self.device = None  # used for filtering of commands
         self.deviceId = None  # used for filtering of commands
@@ -187,7 +190,8 @@ class WishfulModule(object):
 
     def send_event(self, event):
         # stamp event with device
-        event.device = self.device
+        if not event.device:
+            event.device = self.device
         self.moduleManager.send_event(event)
 
     # TODO: move to AgentModule (DeviceModule)
@@ -213,13 +217,39 @@ class WishfulModule(object):
     def set_controller(self, controller):
         self.controller = controller
 
+    def _generate_call_id(self):
+        self.callIdGen = self.callIdGen + 1
+        return self.callIdGen
+
+    def _register_callback(self, ctx):
+        self.log.debug("Register callback function for {}:{}"
+                       .format(ctx._upi_type, ctx._upi))
+        ctx._src = self.uuid
+        ctx._callId = self._generate_call_id()
+
+        self.callbacks[ctx._callId] = ctx._callback
+
 
 class ControllerModule(WishfulModule):
     def __init__(self):
         super(ControllerModule, self).__init__()
+        self.upiCallCallbacks = {}
 
     def add_rule(self,):
         pass
+
+    @on_event(upis.mgmt.CtxReturnValueEvent)
+    def serve_asynchronous_return_value(self, event):
+        ctx = event.ctx
+        self.log.debug("Serving asynchronous return value: {}:{}"
+                       .format(ctx._upi_type, ctx._upi))
+
+        if ctx._src != self.uuid:
+            return
+
+        callback = self.callbacks.get(ctx._callId, None)
+        if callback:
+            callback(event)
 
 
 class AgentModule(WishfulModule):
