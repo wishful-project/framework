@@ -135,13 +135,15 @@ class ModuleWorker(Thread):
             module=self.__class__.__module__, name=self.__class__.__name__))
         self.module = module
         self.taskQueue = Queue()
-        self.daemon = True
+        self.setDaemon(True)
         self.running = True
         self.start()
 
     def run(self):
         while self.running:
             (func, args, kargs) = self.taskQueue.get()
+            if not self.running:
+                break
             try:
                 func(*args, **kargs)
             except Exception as e:
@@ -181,6 +183,10 @@ class WishfulModule(object):
 
         # TODO: move to ControllerModule (ControllerApp)
         self.controller = None
+
+    @on_event(upis.mgmt.AgentExitEvent)
+    def agent_exit_handler(self, event):
+        self.worker.stop()
 
     def set_agent(self, agent):
         self.agent = agent
