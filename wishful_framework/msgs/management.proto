@@ -48,12 +48,16 @@ message Module {
     repeated Service services = 7;
 }
 
-message NewNodeMsg {
+message NodeInfoMsg {
     required string agent_uuid = 1;
     required string ip = 2;
     optional string name = 3;
     optional string info = 4;
     repeated Module modules = 5;
+}
+
+message NodeInfoRequest {
+    required string agent_uuid = 1;
 }
 
 message NewNodeAck {
