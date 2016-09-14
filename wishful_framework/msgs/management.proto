@@ -60,6 +60,10 @@ message NodeInfoRequest {
     required string agent_uuid = 1;
 }
 
+message NodeAddNotification {
+    required string agent_uuid = 1;
+}
+
 message NewNodeAck {
     required bool status = 1;
     optional string controller_uuid = 2;
