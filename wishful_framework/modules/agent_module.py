@@ -76,6 +76,8 @@ class AgentModule(WishfulModule):
         respDesc.type = cmdDesc.type
         respDesc.func_name = cmdDesc.func_name
         respDesc.call_id = cmdDesc.call_id
+        if cmdDesc.HasField('interface'):
+            respDesc.interface = cmdDesc.interface
 
         #TODO: define new protobuf message for return values; currently using repeat_number in CmdDesc 
         #0-executed correctly, 1-exception
