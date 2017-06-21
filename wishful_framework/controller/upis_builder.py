@@ -136,7 +136,8 @@ class UpiBuilder(object):
         self.find_upi_functions(wishful_upis, "radio", modules)
         for module in modules:
             for method in dir(module):
-                if isinstance(getattr(module, method), collections.Callable):
+                # if isinstance(getattr(module, method), collections.Callable):
+                if inspect.isfunction(getattr(module, method)):
                     function = getattr(module, method)
                     function = self.perpare_function(method, function)
                     setattr(UpiRadio, method, function)
@@ -149,7 +150,8 @@ class UpiBuilder(object):
         self.find_upi_functions(wishful_upis, "net", modules)
         for module in modules:
             for method in dir(module):
-                if isinstance(getattr(module, method), collections.Callable):
+                #if isinstance(getattr(module, method), collections.Callable):
+                if inspect.isfunction(getattr(module, method)):
                     function = getattr(module, method)
                     function = self.perpare_function(method, function)
                     setattr(UpiNet, method, function)
@@ -162,7 +164,8 @@ class UpiBuilder(object):
         self.find_upi_functions(wishful_upis, "mgmt", modules)
         for module in modules:
             for method in dir(module):
-                if isinstance(getattr(module, method), collections.Callable):
+                # if isinstance(getattr(module, method), collections.Callable):
+                if inspect.isfunction(getattr(module, method)):
                     function = getattr(module, method)
                     function = self.perpare_function(method, function)
                     setattr(UpiMgmt, method, function)
@@ -175,7 +178,8 @@ class UpiBuilder(object):
         self.find_upi_functions(wishful_upis, "context", modules)
         for module in modules:
             for method in dir(module):
-                if isinstance(getattr(module, method), collections.Callable):
+                #if isinstance(getattr(module, method), collections.Callable):
+                if inspect.isfunction(getattr(module, method)):
                     function = getattr(module, method)
                     function = self.perpare_function(method, function)
                     setattr(UpiContext, method, function)
