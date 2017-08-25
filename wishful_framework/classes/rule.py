@@ -48,7 +48,7 @@ class Rule(object):
 
         retVal = retVal[2]
         retVal = pickle.loads(retVal)
-        print "RULE RECEIVED RESPONSE:", retVal
+        print("RULE RECEIVED RESPONSE: {}".format(retVal))
         #filter
         #match
         #action if matched
