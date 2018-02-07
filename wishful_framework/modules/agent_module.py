@@ -22,7 +22,7 @@ class AgentModule(WishfulModule):
 
     def send_to_module(self, msgContainer):
         self.log.debug("Module {} received cmd".format(self.__class__.__name__))
-        
+
         assert len(msgContainer) == 3
         dest = msgContainer[0]
         cmdDesc = msgContainer[1]
@@ -84,8 +84,13 @@ class AgentModule(WishfulModule):
         else:
             respDesc.repeat_number = 0
 
-        #Serialize return value
+        # Serialize return value
         respDesc.serialization_type = msgs.CmdDesc.PICKLE
+
+        if hasattr(retVal, 'SerializeToString'):
+            respDesc.serialization_type = msgs.CmdDesc.PROTOBUF
+            respDesc.pb_full_name = retVal.DESCRIPTOR.full_name
+
         response = [dest, respDesc, retVal]
 
         return response

@@ -16,8 +16,9 @@ message CmdDesc {
     }
     optional Serialization serialization_type = 8 [default = NONE];
 
-    optional string repeat_interval = 9;
-    optional uint32 repeat_number = 10;
+    optional string pb_full_name = 9;
+    optional string repeat_interval = 10;
+    optional uint32 repeat_number = 11;
 }
 
 
