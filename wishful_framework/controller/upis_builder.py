@@ -1,9 +1,9 @@
-import inspect
 import wishful_upis
 import decorator
 from collections import namedtuple
 import collections
-
+#import inspect
+from inspect import getfullargspec as getargspec
 
 __author__ = "Piotr Gawlowicz"
 __copyright__ = "Copyright (c) 2015, Technische Universitat Berlin"
