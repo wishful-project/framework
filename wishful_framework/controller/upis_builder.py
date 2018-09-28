@@ -2,7 +2,7 @@ import wishful_upis
 import decorator
 from collections import namedtuple
 import collections
-#import inspect
+import inspect
 from inspect import getfullargspec as getargspec
 
 __author__ = "Piotr Gawlowicz"
@@ -50,7 +50,9 @@ def get_method_sig(method):
     # list of defaults are returned in separate array.
     # eg: ArgSpec(args=['first_arg', 'second_arg', 'third_arg'],
     # varargs=None, keywords=None, defaults=(42, 'something'))
-    argspec = inspect.getargspec(method)
+    #argspec = inspect.getargspec(method)
+    #pbecue
+    argspec = getargspec(method)
     arg_index=0
     args = []
 
